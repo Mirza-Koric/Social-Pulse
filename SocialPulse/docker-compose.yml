@@ -1,0 +1,37 @@
+version: '3'
+services:
+#mssql docker
+  socialpulse-sql:
+    container_name: app_db
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SQL_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      - ${SQL_PORT}:1433
+    expose:
+      - 1433
+    networks:
+      - socialpulsenet2023
+
+  socialpulse_api:
+    restart: unless-stopped
+    build:
+      context: .
+    environment:
+      - ConnectionStrings:Main=Server=${SQL_HOST}, ${SQL_PORT};Database=${SQL_DB_COMMON};User=${SQL_USER};Password=${SQL_PASSWORD};ConnectRetryCount=0; TrustServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 7185:7185
+    networks:
+      - socialpulsenet2023
+    links:
+      - socialpulse-sql
+    depends_on:
+      - socialpulse-sql
+
+networks:
+  socialpulsenet2023:
+    driver: bridge
