@@ -1,4 +1,6 @@
-﻿namespace SocialPulse.Core
+﻿using System.Text.Json.Serialization;
+
+namespace SocialPulse.Core
 {
     public class Like : BaseEntity
     {

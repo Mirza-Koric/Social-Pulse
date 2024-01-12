@@ -31,7 +31,7 @@ namespace SocialPulse.Infrastructure
             builder.HasOne(e => e.Tag)
                    .WithMany(e => e.Posts)
                    .HasForeignKey(e => e.TagId)
-                   .IsRequired();
+                   .IsRequired(false);
         }
     }
 }

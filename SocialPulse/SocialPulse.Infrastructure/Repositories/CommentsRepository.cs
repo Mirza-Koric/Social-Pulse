@@ -1,4 +1,5 @@
-﻿using SocialPulse.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using SocialPulse.Core;
 using SocialPulse.Infrastructure.Interfaces;
 using SocialPulse.Infrastructure.Repositories;
 
@@ -8,6 +9,15 @@ namespace SocialPulse.Infrastructure
     {
         public CommentsRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
+        }
+
+        public override async Task<PagedList<Comment>> GetPagedAsync(CommentSearchObject searchObject, CancellationToken cancellationToken)
+        {
+            return await DbSet.Include(c => c.User)
+                .Where(c => searchObject.Text == null || c.Text.ToLower().Contains(searchObject.Text.ToLower()))
+                .Where(c => searchObject.UserId == null || c.UserId == searchObject.UserId)
+                .Where(c => searchObject.PostId == null || c.PostId == searchObject.PostId)
+                .ToPagedListAsync(searchObject, cancellationToken);
         }
     }
 }

@@ -97,6 +97,80 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 3,
+                            Text = "Pumped for my Sunday workout! Cardio or weights, what's your go-to fitness move?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 3,
+                            Text = "Yoga mornings are my favorite! Any yogis here? Share your favorite pose.",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 6,
+                            Text = "Heard about a local community garden initiative that's making a huge impact. Love seeing positive change in action!",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 6,
+                            Text = "My mood instantly lifts when I read about acts of kindness. Share a heartwarming news story that made your day!",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 9,
+                            Text = "Usually all about pop, but diving into classical this week. Any recommendations for a newbie?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 9,
+                            Text = "Jazz is my guilty pleasure! Drop your favorite jazz tune, and let's create a smooth playlist together.",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 11,
+                            Text = "Casablanca is an absolute classic! What's your favorite line from an old-school movie that still gives you chills?",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 11,
+                            Text = "Bringing back the nostalgia with The Breakfast Club! Which classic film takes you on a trip down memory lane?",
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Conversation", b =>
@@ -153,6 +227,40 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Groups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Description = "Sports news and highlight from all major sports organizations",
+                            IsDeleted = false,
+                            Name = "Sports"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Description = "A place for major news from around the world",
+                            IsDeleted = false,
+                            Name = "News"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Description = "The #1 community for music lovers",
+                            IsDeleted = false,
+                            Name = "Music"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Description = "The goal of this group is to provide a place for discussion and news about films",
+                            IsDeleted = false,
+                            Name = "Movies"
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Image", b =>
@@ -229,9 +337,192 @@ namespace SocialPulse.Infrastructure.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "PostId")
+                        .IsUnique();
 
                     b.ToTable("Likes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 1,
+                            Type = true,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 2,
+                            Type = true,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 3,
+                            Type = true,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 4,
+                            Type = false,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 5,
+                            Type = true,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 6,
+                            Type = false,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 7,
+                            Type = true,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 8,
+                            Type = true,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 9,
+                            Type = true,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 10,
+                            Type = false,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 11,
+                            Type = true,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 12,
+                            Type = true,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 1,
+                            Type = true,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 2,
+                            Type = false,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 3,
+                            Type = true,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 4,
+                            Type = true,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 5,
+                            Type = true,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 6,
+                            Type = false,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 7,
+                            Type = true,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            PostId = 8,
+                            Type = true,
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Message", b =>
@@ -294,7 +585,7 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TagId")
+                    b.Property<int?>("TagId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -317,6 +608,131 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 1,
+                            IsDeleted = false,
+                            Text = "Whether it's a slam dunk, a goal celebration, or a touchdown dance, the adrenaline rush of sports is unmatched! What's your favorite sport, and which team has your heart? Drop your cheers in the comments below!",
+                            Title = "Game On!",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 1,
+                            IsDeleted = false,
+                            Text = "Sundays are made for epic sports battles! Which team are you cheering for today, and who's your MVP? Let the banter begin as we countdown to the final whistle. Game on, sports enthusiasts!",
+                            Title = "Sunday Showdown!",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 1,
+                            IsDeleted = false,
+                            TagId = 3,
+                            Text = "Whether it's hitting the gym, pounding the pavement, or mastering a new yoga pose, let's celebrate the fitness journey together! Share your favorite workout routine or fitness tips that keep you motivated. Let's inspire each other to break a sweat!",
+                            Title = "Fitness Fanatics Unite!",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 2,
+                            IsDeleted = false,
+                            Text = "From global events to local buzz, staying updated is key! What news story caught your attention today? Share your thoughts and let's discuss the stories shaping our world. Knowledge is power!",
+                            Title = "Headlines Unveiled: Stay Informed!",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 2,
+                            IsDeleted = false,
+                            Text = "From groundbreaking discoveries to viral trends, what's been catching your eye in the news lately? Let's dive deep into the headlines and share our thoughts on the stories shaping our world. What's your take?",
+                            Title = "Trending Topics Alert!",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 2,
+                            IsDeleted = false,
+                            Text = "In a world full of headlines, let's focus on the positive stories that warm our hearts. Share a recent news piece that made you smile or inspired you. Together, let's spread positivity and celebrate the good vibes!",
+                            Title = "Positive News Vibes Only!",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 3,
+                            IsDeleted = false,
+                            Text = "Music is the soundtrack of our lives, and every beat tells a story. What song is playing on repeat for you right now? Share your current music obsession and let's create a playlist together! ",
+                            Title = "Melody Magic",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 3,
+                            IsDeleted = false,
+                            TagId = 3,
+                            Text = "Mondays are for reminiscing! Share a musical memory that takes you back in time. Whether it's a concert, a road trip playlist, or a special dance moment, let's rewind the clock and relive the magic together.",
+                            Title = "Musical Memories Monday!",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 3,
+                            IsDeleted = false,
+                            Text = "Let's shake things up! Challenge accepted: switch to a music genre you rarely explore. Share a song or artist from the new genre you're diving into, and let's see who discovers their next favorite tune!",
+                            Title = "Genre Swap Challenge!",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 4,
+                            IsDeleted = false,
+                            Text = "Whether it's a blockbuster hit or a hidden gem, what movie stole the show for you recently? Share your top picks, and let's swap recommendations for the ultimate movie night!",
+                            Title = "Movie Buff Vibes",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 4,
+                            IsDeleted = false,
+                            TagId = 3,
+                            Text = "Dive into the archives with me! What classic movie holds a special place in your heart? Share your all-time favorite cinematic masterpiece, and let's reminisce about the golden era of film together.",
+                            Title = "Cinematic Classics Countdown!",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            GroupId = 4,
+                            IsDeleted = false,
+                            Text = "Planning a movie marathon this weekend? Share your must-watch movie list, and let's curate the ultimate movie night lineup! From comedies to dramas, let's make it an unforgettable cinematic experience.",
+                            Title = "Movie Marathon Madness!",
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Question", b =>
@@ -452,6 +868,36 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Name = "Long"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Name = "Short"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Name = "Discussion"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Name = "Media"
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.User", b =>
@@ -511,6 +957,54 @@ namespace SocialPulse.Infrastructure.Migrations
                             PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
                             Role = 0,
                             Username = "TestUser"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BirthDate = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Email = "user2@mail.com",
+                            IsDeleted = false,
+                            PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=",
+                            PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
+                            Role = 1,
+                            Username = "TestUser2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BirthDate = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Email = "user3@mail.com",
+                            IsDeleted = false,
+                            PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=",
+                            PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
+                            Role = 1,
+                            Username = "TestUser3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BirthDate = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Email = "user4@mail.com",
+                            IsDeleted = false,
+                            PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=",
+                            PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
+                            Role = 1,
+                            Username = "TestUser4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BirthDate = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Email = "user5@mail.com",
+                            IsDeleted = false,
+                            PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=",
+                            PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
+                            Role = 1,
+                            Username = "TestUser5"
                         });
                 });
 
@@ -649,9 +1143,7 @@ namespace SocialPulse.Infrastructure.Migrations
 
                     b.HasOne("SocialPulse.Core.Tag", "Tag")
                         .WithMany("Posts")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TagId");
 
                     b.HasOne("SocialPulse.Core.User", "User")
                         .WithMany("Posts")

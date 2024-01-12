@@ -13,6 +13,8 @@ namespace SocialPulse.Infrastructure
             builder.Property(e => e.Type)
                    .IsRequired();
 
+            builder.HasIndex(e => new { e.UserId, e.PostId }).IsUnique();
+
             builder.HasOne(e => e.Post)
                    .WithMany(e => e.Likes)
                    .HasForeignKey(e => e.PostId)

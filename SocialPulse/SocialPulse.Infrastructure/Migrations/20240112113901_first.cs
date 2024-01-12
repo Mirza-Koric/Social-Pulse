@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SocialPulse.Infrastructure.Migrations
 {
     /// <inheritdoc />
@@ -120,7 +122,7 @@ namespace SocialPulse.Infrastructure.Migrations
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     GroupId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -138,8 +140,7 @@ namespace SocialPulse.Infrastructure.Migrations
                         name: "FK_Posts_Tags_TagId",
                         column: x => x.TagId,
                         principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Posts_Users_UserId",
                         column: x => x.UserId,
@@ -368,9 +369,99 @@ namespace SocialPulse.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Groups",
+                columns: new[] { "Id", "CreatedAt", "Description", "ModifiedAt", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Sports news and highlight from all major sports organizations", null, "Sports" },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "A place for major news from around the world", null, "News" },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "The #1 community for music lovers", null, "Music" },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "The goal of this group is to provide a place for discussion and news about films", null, "Movies" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "Id", "CreatedAt", "ModifiedAt", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Long" },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Short" },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Discussion" },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Media" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "BirthDate", "CreatedAt", "Email", "ModifiedAt", "PasswordHash", "PasswordSalt", "Role", "Username" },
-                values: new object[] { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "user@mail.com", null, "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", "0dUI00v6BWmtxp8JCAyw9w==", 0, "TestUser" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "user@mail.com", null, "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", "0dUI00v6BWmtxp8JCAyw9w==", 0, "TestUser" },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "user2@mail.com", null, "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", "0dUI00v6BWmtxp8JCAyw9w==", 1, "TestUser2" },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "user3@mail.com", null, "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", "0dUI00v6BWmtxp8JCAyw9w==", 1, "TestUser3" },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "user4@mail.com", null, "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", "0dUI00v6BWmtxp8JCAyw9w==", 1, "TestUser4" },
+                    { 5, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "user5@mail.com", null, "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", "0dUI00v6BWmtxp8JCAyw9w==", 1, "TestUser5" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "Id", "CreatedAt", "GroupId", "ModifiedAt", "TagId", "Text", "Title", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 1, null, null, "Whether it's a slam dunk, a goal celebration, or a touchdown dance, the adrenaline rush of sports is unmatched! What's your favorite sport, and which team has your heart? Drop your cheers in the comments below!", "Game On!", 2 },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 1, null, null, "Sundays are made for epic sports battles! Which team are you cheering for today, and who's your MVP? Let the banter begin as we countdown to the final whistle. Game on, sports enthusiasts!", "Sunday Showdown!", 2 },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 1, null, 3, "Whether it's hitting the gym, pounding the pavement, or mastering a new yoga pose, let's celebrate the fitness journey together! Share your favorite workout routine or fitness tips that keep you motivated. Let's inspire each other to break a sweat!", "Fitness Fanatics Unite!", 3 },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 2, null, null, "From global events to local buzz, staying updated is key! What news story caught your attention today? Share your thoughts and let's discuss the stories shaping our world. Knowledge is power!", "Headlines Unveiled: Stay Informed!", 3 },
+                    { 5, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 2, null, null, "From groundbreaking discoveries to viral trends, what's been catching your eye in the news lately? Let's dive deep into the headlines and share our thoughts on the stories shaping our world. What's your take?", "Trending Topics Alert!", 4 },
+                    { 6, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 2, null, null, "In a world full of headlines, let's focus on the positive stories that warm our hearts. Share a recent news piece that made you smile or inspired you. Together, let's spread positivity and celebrate the good vibes!", "Positive News Vibes Only!", 4 },
+                    { 7, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 3, null, null, "Music is the soundtrack of our lives, and every beat tells a story. What song is playing on repeat for you right now? Share your current music obsession and let's create a playlist together! ", "Melody Magic", 5 },
+                    { 8, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 3, null, 3, "Mondays are for reminiscing! Share a musical memory that takes you back in time. Whether it's a concert, a road trip playlist, or a special dance moment, let's rewind the clock and relive the magic together.", "Musical Memories Monday!", 3 },
+                    { 9, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 3, null, null, "Let's shake things up! Challenge accepted: switch to a music genre you rarely explore. Share a song or artist from the new genre you're diving into, and let's see who discovers their next favorite tune!", "Genre Swap Challenge!", 4 },
+                    { 10, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 4, null, null, "Whether it's a blockbuster hit or a hidden gem, what movie stole the show for you recently? Share your top picks, and let's swap recommendations for the ultimate movie night!", "Movie Buff Vibes", 2 },
+                    { 11, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 4, null, 3, "Dive into the archives with me! What classic movie holds a special place in your heart? Share your all-time favorite cinematic masterpiece, and let's reminisce about the golden era of film together.", "Cinematic Classics Countdown!", 3 },
+                    { 12, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 4, null, null, "Planning a movie marathon this weekend? Share your must-watch movie list, and let's curate the ultimate movie night lineup! From comedies to dramas, let's make it an unforgettable cinematic experience.", "Movie Marathon Madness!", 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Comments",
+                columns: new[] { "Id", "CreatedAt", "ModifiedAt", "PostId", "Text", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 3, "Pumped for my Sunday workout! Cardio or weights, what's your go-to fitness move?", 2 },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 3, "Yoga mornings are my favorite! Any yogis here? Share your favorite pose.", 3 },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 6, "Heard about a local community garden initiative that's making a huge impact. Love seeing positive change in action!", 4 },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 6, "My mood instantly lifts when I read about acts of kindness. Share a heartwarming news story that made your day!", 5 },
+                    { 5, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 9, "Usually all about pop, but diving into classical this week. Any recommendations for a newbie?", 2 },
+                    { 6, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 9, "Jazz is my guilty pleasure! Drop your favorite jazz tune, and let's create a smooth playlist together.", 3 },
+                    { 7, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 11, "Casablanca is an absolute classic! What's your favorite line from an old-school movie that still gives you chills?", 5 },
+                    { 8, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 11, "Bringing back the nostalgia with The Breakfast Club! Which classic film takes you on a trip down memory lane?", 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Likes",
+                columns: new[] { "Id", "CreatedAt", "ModifiedAt", "PostId", "Type", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 1, true, 2 },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 2, true, 3 },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 3, true, 5 },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 4, false, 5 },
+                    { 5, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 5, true, 3 },
+                    { 6, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 6, false, 3 },
+                    { 7, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 7, true, 4 },
+                    { 8, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 8, true, 3 },
+                    { 9, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 9, true, 2 },
+                    { 10, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 10, false, 3 },
+                    { 11, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 11, true, 4 },
+                    { 12, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 12, true, 5 },
+                    { 13, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 1, true, 3 },
+                    { 14, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 2, false, 4 },
+                    { 15, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 3, true, 4 },
+                    { 16, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 4, true, 4 },
+                    { 17, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 5, true, 2 },
+                    { 18, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 6, false, 4 },
+                    { 19, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 7, true, 5 },
+                    { 20, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 8, true, 5 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_AdminId",
@@ -409,9 +500,10 @@ namespace SocialPulse.Infrastructure.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_UserId",
+                name: "IX_Likes_UserId_PostId",
                 table: "Likes",
-                column: "UserId");
+                columns: new[] { "UserId", "PostId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_ConversationId",
