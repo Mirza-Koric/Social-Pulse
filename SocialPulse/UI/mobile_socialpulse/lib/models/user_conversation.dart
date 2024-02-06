@@ -1,4 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobile_socialpulse/models/user.dart';
+
+import 'conversation.dart';
 
 part 'user_conversation.g.dart';
 
@@ -6,9 +9,11 @@ part 'user_conversation.g.dart';
 class UserConversation{
   int? id;
   int? userId;
+  User? user;
   int? conversationId;
+  Conversation? conversation;
 
-  UserConversation (this.id,this.userId,this.conversationId);
+  UserConversation (this.id,this.userId,this.user,this.conversationId,this.conversation);
 
   factory UserConversation.fromJson(Map<String, dynamic> json) =>
       _$UserConversationFromJson(json);

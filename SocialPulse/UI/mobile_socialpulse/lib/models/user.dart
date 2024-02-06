@@ -6,10 +6,11 @@ part 'user.g.dart';
 class User{
   int? id;
   String? username;
+  String? email;
   String? role;
   DateTime? birthDate;
 
-  User (this.id,this.username,this.role,this.birthDate);
+  User (this.id,this.username,this.email,this.role,this.birthDate);
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);

@@ -369,6 +369,17 @@ namespace SocialPulse.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Conversations",
+                columns: new[] { "Id", "CreatedAt", "ModifiedAt" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Groups",
                 columns: new[] { "Id", "CreatedAt", "Description", "ModifiedAt", "Name" },
                 values: new object[,]
@@ -403,6 +414,38 @@ namespace SocialPulse.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Messages",
+                columns: new[] { "Id", "ConversationId", "CreatedAt", "ModifiedAt", "Text", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local), null, "Just finished a killer workout. What's up with you?", 2 },
+                    { 2, 1, new DateTime(2023, 2, 1, 0, 2, 0, 0, DateTimeKind.Local), null, "I'm just chilling and catching up on some reading. Any exciting plans for the weekend?", 3 },
+                    { 3, 1, new DateTime(2023, 2, 1, 0, 3, 0, 0, DateTimeKind.Local), null, "Thinking of hitting the trails for a hike. Nature vibes, you know? What about you?", 2 },
+                    { 4, 1, new DateTime(2023, 2, 1, 0, 4, 0, 0, DateTimeKind.Local), null, "That sounds awesome! I might check out a new coffee shop downtown. Any book recommendations?", 3 },
+                    { 5, 1, new DateTime(2023, 2, 1, 0, 5, 0, 0, DateTimeKind.Local), null, "Absolutely! \"The Night Circus\" is a magical read. What kind of books are you into lately?", 2 },
+                    { 6, 1, new DateTime(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local), null, "I'm on a sci-fi kick lately. Just finished \"Dune\" — epic world-building! Got any sci-fi gems in mind?", 3 },
+                    { 7, 1, new DateTime(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local), null, "Nice choice! \"Neuromancer\" is a classic cyberpunk adventure. What's your favorite sci-fi element?", 2 },
+                    { 8, 1, new DateTime(2023, 2, 1, 0, 7, 0, 0, DateTimeKind.Local), null, "Definitely the exploration of AI and its impact on society. Love those thought-provoking themes. What about you?", 3 },
+                    { 9, 1, new DateTime(2023, 2, 1, 0, 8, 0, 0, DateTimeKind.Local), null, "Same here! The ethical dilemmas in AI stories always get me thinking. Changing topics, any movie plans for the night?", 2 },
+                    { 10, 1, new DateTime(2023, 2, 1, 0, 9, 0, 0, DateTimeKind.Local), null, "Just downloaded a new indie film. \"Eternal Sunshine of the Spotless Mind.\" Heard it's a mind-bender. Have you seen it?", 3 },
+                    { 11, 1, new DateTime(2023, 2, 1, 0, 10, 0, 0, DateTimeKind.Local), null, "Absolutely love that one! Jim Carrey in a different light, you know?", 2 },
+                    { 12, 1, new DateTime(2023, 2, 1, 0, 11, 0, 0, DateTimeKind.Local), null, "Enjoy the journey! Let me know how you find it.", 2 },
+                    { 13, 1, new DateTime(2023, 2, 1, 0, 12, 0, 0, DateTimeKind.Local), null, "Thanks. Enjoy your hike and have a fantastic weekend!", 3 },
+                    { 14, 2, new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local), null, "Just got tickets to that new comedy show downtown. Interested in joining?", 4 },
+                    { 15, 2, new DateTime(2023, 2, 1, 0, 2, 0, 0, DateTimeKind.Local), null, "Sounds fun! Count me in. When's the show?", 5 },
+                    { 16, 2, new DateTime(2023, 2, 1, 0, 3, 0, 0, DateTimeKind.Local), null, "It's this Saturday at 8 PM. Perfect way to kick off the weekend!", 4 },
+                    { 17, 2, new DateTime(2023, 2, 1, 0, 4, 0, 0, DateTimeKind.Local), null, "Awesome! Looking forward to it. Anything else happening this week?", 5 },
+                    { 18, 2, new DateTime(2023, 2, 1, 0, 5, 0, 0, DateTimeKind.Local), null, "Not much, just work and the usual. Any movie recommendations for a cozy night in?", 4 },
+                    { 19, 2, new DateTime(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local), null, "How about \"The Grand Budapest Hotel\"? Quirky and entertaining!", 5 },
+                    { 20, 2, new DateTime(2023, 2, 1, 0, 7, 0, 0, DateTimeKind.Local), null, "Great pick! I'll check it out. See you Saturday!", 4 },
+                    { 21, 2, new DateTime(2023, 2, 1, 0, 8, 0, 0, DateTimeKind.Local), null, "Can't wait! See you then!", 5 },
+                    { 22, 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Hello?", 2 },
+                    { 23, 3, new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local), null, "Hi.", 4 },
+                    { 24, 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Hello?", 3 },
+                    { 25, 4, new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local), null, "Hi!", 5 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "CreatedAt", "GroupId", "ModifiedAt", "TagId", "Text", "Title", "UserId" },
                 values: new object[,]
@@ -419,6 +462,47 @@ namespace SocialPulse.Infrastructure.Migrations
                     { 10, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 4, null, null, "Whether it's a blockbuster hit or a hidden gem, what movie stole the show for you recently? Share your top picks, and let's swap recommendations for the ultimate movie night!", "Movie Buff Vibes", 2 },
                     { 11, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 4, null, 3, "Dive into the archives with me! What classic movie holds a special place in your heart? Share your all-time favorite cinematic masterpiece, and let's reminisce about the golden era of film together.", "Cinematic Classics Countdown!", 3 },
                     { 12, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), 4, null, null, "Planning a movie marathon this weekend? Share your must-watch movie list, and let's curate the ultimate movie night lineup! From comedies to dramas, let's make it an unforgettable cinematic experience.", "Movie Marathon Madness!", 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Questions",
+                columns: new[] { "Id", "CreatedAt", "ModifiedAt", "Text", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "I'm curious about the future updates! Can you give us a sneak peek into any upcoming features or improvements?", 2 },
+                    { 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "How do you ensure the safety and privacy of user data on the platform?", 2 },
+                    { 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Are there any plans for community events or challenges on the platform? It would be awesome to engage with other users in a fun way!", 3 },
+                    { 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "How does content moderation work to ensure a positive and respectful environment?", 3 },
+                    { 5, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "I'm curious about the technology behind the scenes. What kind of AI models power the platform, and how do you ensure they're unbiased?", 2 },
+                    { 6, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "Are there plans to expand the app to support different languages and cultures?", 3 },
+                    { 7, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "How can users contribute to the development of the platform? Any plans for a user feedback program?", 4 },
+                    { 8, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, "In case of technical issues or bugs, what's the best way for users to report them and get assistance?", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserConversations",
+                columns: new[] { "Id", "ConversationId", "CreatedAt", "ModifiedAt", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 2 },
+                    { 2, 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 3 },
+                    { 3, 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 4 },
+                    { 4, 2, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 5 },
+                    { 5, 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 2 },
+                    { 6, 3, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 4 },
+                    { 7, 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 3 },
+                    { 8, 4, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "AdminId", "CreatedAt", "ModifiedAt", "QuestionId", "Text" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 1, "Absolutely! We're thrilled about the upcoming updates. Get ready for enhanced user customization options, improved performance, and a brand-new feature that will take your experience to the next level. Stay tuned for the big reveal!" },
+                    { 2, 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 2, "Great question! User privacy and data security are our top priorities. We implement robust encryption protocols, conduct regular security audits, and adhere to strict privacy policies. Rest assured, your data is in safe hands!" },
+                    { 3, 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 3, "We're working on creating exciting community events and challenges. Imagine interactive quizzes, themed discussions, and collaborative projects. Your feedback matters, so if you have any event ideas, feel free to share! Let's make this platform even more vibrant together." },
+                    { 4, 1, new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), null, 4, "We use a combination of automated tools and human moderation to ensure content aligns with our guidelines. We're committed to fostering an inclusive and respectful space for everyone. Your reports and feedback play a crucial role in keeping our community healthy!" }
                 });
 
             migrationBuilder.InsertData(

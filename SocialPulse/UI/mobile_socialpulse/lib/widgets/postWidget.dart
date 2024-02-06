@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_socialpulse/models/search_result.dart';
+import 'package:mobile_socialpulse/pages/listPosts_page.dart';
+import 'package:mobile_socialpulse/pages/otherUser_page.dart';
+import 'package:mobile_socialpulse/pages/profile_page.dart';
 import 'package:provider/provider.dart';
 
 import '../models/comment.dart';
 import '../models/like.dart';
 import '../models/tag.dart';
 import '../models/user.dart';
+import '../models/image.dart' as myimage;
 import '../providers/comment_provider.dart';
 import '../providers/like_provider.dart';
 import '../utils/utils.dart';
@@ -17,17 +21,21 @@ class PostWidget extends StatefulWidget {
   final int id;
   final String title;
   final String content;
-  final String group;
+  final int groupId;
+  final String groupName;
   final User user;
   final Tag? tag;
+  final List<myimage.Image>? images;
 
   const PostWidget(
       {required this.id,
       required this.title,
       required this.content,
-      required this.group,
+      required this.groupId,
+      required this.groupName,
       required this.user,
       this.tag,
+      required this.images,
       super.key});
 
   @override
@@ -237,7 +245,7 @@ class _PostWidgetState extends State<PostWidget> {
         ? const SpinKitFadingCircle(color: Colors.lightGreen)
         : SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               decoration: const BoxDecoration(
                   gradient: LinearGradient(colors: [
                     Color.fromARGB(255, 200, 200, 200),
@@ -254,15 +262,32 @@ class _PostWidgetState extends State<PostWidget> {
                     },
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context)=> PostsList(groupId: widget.groupId, groupname: widget.groupName,)));
+                                },
+                                child: Text(
+                                    widget.groupName,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                        decoration: TextDecoration.underline,
+                                        decorationThickness: 2
+                                    )
+                                ),
+                              ),
+                              const SizedBox(width: 15),
                               Text(
-                                  "${widget.group}  Tag: ${widget.tag?.name ?? ""}",
-                                  style: kTileSubtitleStyle),
+                                  "Tag: ${widget.tag?.name ?? ""}",
+                                  style: kTileContentStyle),
                               const Spacer(),
                               const Icon(
                                 Icons.more_horiz,
@@ -270,7 +295,7 @@ class _PostWidgetState extends State<PostWidget> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
@@ -278,7 +303,7 @@ class _PostWidgetState extends State<PostWidget> {
                             maxLines: 3,
                             style: kTileTitleStyle,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           //buildTags(),
@@ -286,21 +311,32 @@ class _PostWidgetState extends State<PostWidget> {
                             widget.content,
                             style: kTileContentStyle,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
+                          ),
+                          (widget.images == null || widget.images == [] || widget.images!.isEmpty)
+                              ? const SizedBox()
+                              : Container(
+                            constraints: const BoxConstraints(maxHeight: 200, maxWidth: 350),
+                            child: ListView.builder(
+                                itemCount: widget.images!.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return imageFromBase64String(widget.images![index].data!);
+                                }
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                        // color: Color.fromARGB(255, 222, 222, 222),
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15))),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -308,8 +344,25 @@ class _PostWidgetState extends State<PostWidget> {
                           padding: const EdgeInsets.only(bottom: 3.0),
                           child: Row(
                             children: [
-                              Text(widget.user.username!,
-                                  style: kTileSubtitleStyle),
+                              TextButton(
+                                onPressed:
+                                widget.user.id==int.parse(Authentification.tokenDecoded?["Id"]) ? null :
+                                    () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context)=> OtherUser(id: widget.user.id!)));
+                                },
+                                child: Text(widget.user.username!,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                        decoration:
+                                        widget.user.id==int.parse(Authentification.tokenDecoded?["Id"]) ? null :
+                                        TextDecoration.underline,
+                                        decorationThickness: 2
+                                    )
+                                ),
+                              ),
                               const Spacer(),
                               IconButton(
                                 tooltip: "Show comments",
@@ -318,14 +371,14 @@ class _PostWidgetState extends State<PostWidget> {
                                     visibleComments = !visibleComments;
                                   });
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.chat_bubble,
                                   color: Colors.black,
                                   size: 20,
                                 ),
                               ),
                               Text(comments!.length.toString()),
-                              SizedBox(
+                              const SizedBox(
                                 width: 6,
                               ),
                               IconButton(
@@ -370,15 +423,11 @@ class _PostWidgetState extends State<PostWidget> {
                   ),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 120),
-                    height: (visibleComments ? 1 : 0) *
-                        ((comments == null || comments!.isEmpty)
-                            ? 90.0
-                            : comments!.length * 110.0),
                     width: double.infinity,
                     child: SingleChildScrollView(
-                      child: Column(
+                      child: visibleComments ? Column(
                         children: renderComments(),
-                      ),
+                      ): Container(),
                     ),
                   )
                 ],
@@ -388,9 +437,6 @@ class _PostWidgetState extends State<PostWidget> {
   }
 }
 
-var kTileTitleStyle = const TextStyle(
-    fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black);
-var kTileSubtitleStyle =
-    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
-var kTileContentStyle = const TextStyle(
-    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);
+var kTileTitleStyle = const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black);
+var kTileSubtitleStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+var kTileContentStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);

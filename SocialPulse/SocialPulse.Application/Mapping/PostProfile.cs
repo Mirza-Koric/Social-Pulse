@@ -8,7 +8,8 @@ namespace SocialPulse.Application
         {
             CreateMap<PostDto, Post>().ReverseMap();
 
-            CreateMap<PostUpsertDto, Post>();
+            CreateMap<PostUpsertDto, Post>()
+                .ForMember(p=>p.Images, opt=>opt.MapFrom(src=>src.Images));
         }
     }
 }

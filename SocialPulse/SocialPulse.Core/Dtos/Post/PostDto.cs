@@ -12,8 +12,8 @@
         public int? TagId { get; set; }
         public TagDto Tag { get; set; } = null!;
 
-        //public ICollection<CommentDto> Comments { get; set; } = null!;
-        //public ICollection<LikeDto> Likes { get; set; } = null!;
-        //public ICollection<ImageDto> Images { get; set; } = null!;
+        public ICollection<CommentDto> Comments { get; set; } = null!;
+        public ICollection<LikeDto> Likes { get; set; } = null!;
+        public ICollection<ImageDto> Images { get; set; } = null!;
     }
 }

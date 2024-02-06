@@ -5,5 +5,6 @@
         public string Text { get; set; } = null!;
         public int UserId { get; set; }
         public UserDto User { get; set; } = null!;
+        public AnswerDto? Answer { get; set; }
     }
 }

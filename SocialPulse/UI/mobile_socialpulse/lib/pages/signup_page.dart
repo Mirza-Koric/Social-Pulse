@@ -40,8 +40,8 @@ class _SignupPageState extends State<SignupPage> {
         });
       }
     } catch (e) {
-      // alertBoxMoveBack(
-      //     context, AppLocalizations.of(context).error, e.toString());
+      alertBoxMoveBack(
+          context, "Error", e.toString());
     }
   }
 

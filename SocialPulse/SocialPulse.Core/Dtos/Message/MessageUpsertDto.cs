@@ -6,5 +6,7 @@
 
         public int UserId { get; set; }
         public int ConversationId { get; set; }
+        public ICollection<ImageUpsertDto> Images { get; set; } = null!;
+
     }
 }

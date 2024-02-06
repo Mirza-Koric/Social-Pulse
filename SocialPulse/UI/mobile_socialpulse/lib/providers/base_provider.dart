@@ -170,6 +170,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
       throw Exception("Unauthorized");
     } else {
       throw Exception(
-          "Something bad happened please try again. Message: ${response.body}");
+          "Something bad happened during the web request. Message: ${response.statusCode}");
     }
   }

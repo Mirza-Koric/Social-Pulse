@@ -19,6 +19,7 @@ namespace SocialPulse.Infrastructure
                 .Where(p => searchObject.UserId == null || p.UserId == searchObject.UserId)
                 .Where(p => searchObject.GroupId == null || p.GroupId == searchObject.GroupId)
                 .Where(p => searchObject.TagId == null || p.TagId == searchObject.TagId)
+                .OrderByDescending(p => p.CreatedAt)
                 .ToPagedListAsync(searchObject, cancellationToken);
         }
     }

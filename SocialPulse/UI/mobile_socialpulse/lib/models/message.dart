@@ -1,4 +1,6 @@
+
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobile_socialpulse/models/image.dart';
 
 part 'message.g.dart';
 
@@ -8,8 +10,10 @@ class Message{
   String? text;
   int? userId;
   int? conversationId;
+  DateTime? createdAt;
+  List<Image>? images;
 
-  Message (this.id,this.text,this.userId,this.conversationId);
+  Message (this.id,this.text,this.userId,this.conversationId, this.createdAt, this.images);
 
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);

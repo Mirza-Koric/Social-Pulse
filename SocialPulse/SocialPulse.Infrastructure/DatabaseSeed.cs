@@ -15,6 +15,11 @@ namespace SocialPulse.Infrastructure
             SeedPosts(modelBuilder);
             SeedComments(modelBuilder);
             SeedLikes(modelBuilder);
+            SeedQuestions(modelBuilder);
+            SeedAnswers(modelBuilder);
+            SeedConversations(modelBuilder);
+            SeedMessages(modelBuilder);
+            SeedUserConversations(modelBuilder);
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)
@@ -366,6 +371,7 @@ namespace SocialPulse.Infrastructure
                     ModifiedAt = null
                 });
         }
+
         private void SeedLikes(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Like>().HasData(
@@ -551,5 +557,447 @@ namespace SocialPulse.Infrastructure
                 });
         }
 
+        private void SeedQuestions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Question>().HasData(
+                new Question
+                {
+                    Id=1,
+                    Text= "I'm curious about the future updates! Can you give us a sneak peek into any upcoming features or improvements?",
+                    UserId=2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Question
+                {
+                    Id = 2,
+                    Text = "How do you ensure the safety and privacy of user data on the platform?",
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Question
+                {
+                    Id = 3,
+                    Text = "Are there any plans for community events or challenges on the platform? It would be awesome to engage with other users in a fun way!",
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Question
+                {
+                    Id = 4,
+                    Text = "How does content moderation work to ensure a positive and respectful environment?",
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Question
+                {
+                    Id = 5,
+                    Text = "I'm curious about the technology behind the scenes. What kind of AI models power the platform, and how do you ensure they're unbiased?",
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Question
+                {
+                    Id = 6,
+                    Text = "Are there plans to expand the app to support different languages and cultures?",
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Question
+                {
+                    Id = 7,
+                    Text = "How can users contribute to the development of the platform? Any plans for a user feedback program?",
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Question
+                {
+                    Id = 8,
+                    Text = "In case of technical issues or bugs, what's the best way for users to report them and get assistance?",
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
+        }
+
+        private void SeedAnswers(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Answer>().HasData(
+                new Answer
+                {
+                    Id = 1,
+                    Text = "Absolutely! We're thrilled about the upcoming updates. Get ready for enhanced user customization options, improved performance, and a brand-new feature that will take your experience to the next level. Stay tuned for the big reveal!",
+                    AdminId = 1,
+                    QuestionId = 1,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Answer
+                {
+                    Id = 2,
+                    Text = "Great question! User privacy and data security are our top priorities. We implement robust encryption protocols, conduct regular security audits, and adhere to strict privacy policies. Rest assured, your data is in safe hands!",
+                    AdminId = 1,
+                    QuestionId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Answer
+                {
+                    Id = 3,
+                    Text = "We're working on creating exciting community events and challenges. Imagine interactive quizzes, themed discussions, and collaborative projects. Your feedback matters, so if you have any event ideas, feel free to share! Let's make this platform even more vibrant together.",
+                    AdminId = 1,
+                    QuestionId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Answer
+                {
+                    Id = 4,
+                    Text = "We use a combination of automated tools and human moderation to ensure content aligns with our guidelines. We're committed to fostering an inclusive and respectful space for everyone. Your reports and feedback play a crucial role in keeping our community healthy!",
+                    AdminId = 1,
+                    QuestionId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
+        }
+
+        private void SeedConversations(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Conversation>().HasData(
+                new Conversation
+                {
+                    Id = 1,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Conversation
+                {
+                    Id = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Conversation
+                {
+                    Id = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Conversation
+                {
+                    Id = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
+        }
+
+        private void SeedMessages(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>().HasData(
+                new Message
+                {
+                    Id = 1,
+                    Text = "Just finished a killer workout. What's up with you?",
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 2,
+                    Text = "I'm just chilling and catching up on some reading. Any exciting plans for the weekend?",
+                    UserId = 3,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 2, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 3,
+                    Text = "Thinking of hitting the trails for a hike. Nature vibes, you know? What about you?",
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 3, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 4,
+                    Text = "That sounds awesome! I might check out a new coffee shop downtown. Any book recommendations?",
+                    UserId = 3,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 4, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 5,
+                    Text = "Absolutely! \"The Night Circus\" is a magical read. What kind of books are you into lately?",
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 5, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 6,
+                    Text = "I'm on a sci-fi kick lately. Just finished \"Dune\" — epic world-building! Got any sci-fi gems in mind?",
+                    UserId = 3,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 7,
+                    Text = "Nice choice! \"Neuromancer\" is a classic cyberpunk adventure. What's your favorite sci-fi element?",
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 8,
+                    Text = "Definitely the exploration of AI and its impact on society. Love those thought-provoking themes. What about you?",
+                    UserId = 3,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 7, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 9,
+                    Text = "Same here! The ethical dilemmas in AI stories always get me thinking. Changing topics, any movie plans for the night?",
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 8, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 10,
+                    Text = "Just downloaded a new indie film. \"Eternal Sunshine of the Spotless Mind.\" Heard it's a mind-bender. Have you seen it?",
+                    UserId = 3,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 9, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 11,
+                    Text = "Absolutely love that one! Jim Carrey in a different light, you know?",
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 10, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 12,
+                    Text = "Enjoy the journey! Let me know how you find it.",
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 11, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 13,
+                    Text = "Thanks. Enjoy your hike and have a fantastic weekend!",
+                    UserId = 3,
+                    ConversationId = 1,
+                    CreatedAt = new(2023, 2, 1, 0, 12, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 14,
+                    Text = "Just got tickets to that new comedy show downtown. Interested in joining?",
+                    UserId = 4,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 15,
+                    Text = "Sounds fun! Count me in. When's the show?",
+                    UserId = 5,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 2, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 16,
+                    Text = "It's this Saturday at 8 PM. Perfect way to kick off the weekend!",
+                    UserId = 4,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 3, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 17,
+                    Text = "Awesome! Looking forward to it. Anything else happening this week?",
+                    UserId = 5,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 4, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 18,
+                    Text = "Not much, just work and the usual. Any movie recommendations for a cozy night in?",
+                    UserId = 4,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 5, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 19,
+                    Text = "How about \"The Grand Budapest Hotel\"? Quirky and entertaining!",
+                    UserId = 5,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 20,
+                    Text = "Great pick! I'll check it out. See you Saturday!",
+                    UserId = 4,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 7, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 21,
+                    Text = "Can't wait! See you then!",
+                    UserId = 5,
+                    ConversationId = 2,
+                    CreatedAt = new(2023, 2, 1, 0, 8, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 22,
+                    Text = "Hello?",
+                    UserId = 2,
+                    ConversationId = 3,
+                    CreatedAt = new(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 23,
+                    Text = "Hi.",
+                    UserId = 4,
+                    ConversationId = 3,
+                    CreatedAt = new(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 24,
+                    Text = "Hello?",
+                    UserId = 3,
+                    ConversationId = 4,
+                    CreatedAt = new(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                },
+                new Message
+                {
+                    Id = 25,
+                    Text = "Hi!",
+                    UserId = 5,
+                    ConversationId = 4,
+                    CreatedAt = new(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                    ModifiedAt = null
+                }
+                );
+        }
+
+        private void SeedUserConversations(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserConversation>().HasData(
+                new UserConversation
+                {
+                    Id = 1,
+                    UserId = 2,
+                    ConversationId = 1,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new UserConversation
+                {
+                    Id = 2,
+                    UserId = 3,
+                    ConversationId = 1,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new UserConversation
+                {
+                    Id = 3,
+                    UserId = 4,
+                    ConversationId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new UserConversation
+                {
+                    Id = 4,
+                    UserId = 5,
+                    ConversationId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new UserConversation
+                {
+                    Id = 5,
+                    UserId = 2,
+                    ConversationId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new UserConversation
+                {
+                    Id = 6,
+                    UserId = 4,
+                    ConversationId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new UserConversation
+                {
+                    Id = 7,
+                    UserId = 3,
+                    ConversationId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new UserConversation
+                {
+                    Id = 8,
+                    UserId = 5,
+                    ConversationId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
+        }
     }
 }

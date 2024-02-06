@@ -20,6 +20,9 @@ class Post{
   Group? group;
   int? tagId;
   Tag? tag;
+  List<Comment>? comments;
+  List<Like>? likes;
+    List<Image>? images;
 
   Post (
       this.id,
@@ -30,7 +33,10 @@ class Post{
       this.groupId,
       this.group,
       this.tagId,
-      this.tag,);
+      this.tag,
+      this.comments,
+      this.likes,
+      this.images);
 
   factory Post.fromJson(Map<String, dynamic> json) =>
       _$PostFromJson(json);

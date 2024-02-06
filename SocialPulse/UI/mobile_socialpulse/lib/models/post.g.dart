@@ -22,6 +22,15 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       json['tag'] == null
           ? null
           : Tag.fromJson(json['tag'] as Map<String, dynamic>),
+      (json['comments'] as List<dynamic>?)
+          ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['likes'] as List<dynamic>?)
+          ?.map((e) => Like.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['images'] as List<dynamic>?)
+          ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -34,4 +43,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'group': instance.group,
       'tagId': instance.tagId,
       'tag': instance.tag,
+      'comments': instance.comments,
+      'likes': instance.likes,
+      'images': instance.images,
     };

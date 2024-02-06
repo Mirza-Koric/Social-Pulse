@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'Email',
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
-                      onChanged: (_) => _formKey.currentState?.validate(),
+                      //onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                           return value!.isEmpty
                               ? 'Please, Enter Email Address'
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'Password',
                       keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.done,
-                      onChanged: (_) => _formKey.currentState?.validate(),
+                      //onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                           return value!.isEmpty
                               ? 'Please, Enter Password'
@@ -137,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                         ? const SpinKitFadingCircle(color: Colors.lightGreen)
                       :FilledButton(
                       onPressed: _formKey.currentState?.validate() ?? false
-                          ? () async {
+                          ?
+                          () async {
 
                         if (mounted) {
                           setState(() {
@@ -158,10 +159,11 @@ class _LoginPageState extends State<LoginPage> {
 
                           if (Authentification.tokenDecoded?['Role'] !=
                               'User') {
+                            if(mounted){
                             alertBox(
                                 context,
                                 "Error",
-                                "Admin account cannot access mobile app");
+                                "Admin account cannot access mobile app");}
                             if (mounted) {
                               setState(() {
                                 isLoading = false;
@@ -175,36 +177,38 @@ class _LoginPageState extends State<LoginPage> {
                                 }));
                           }
                         }
-                        catch (e)
-                        {
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: Text("Error"),
-                                content: Text(e.toString()),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        if (mounted) {
-                                          setState(() {
-                                            isLoading = false;
-                                          });
-                                        }
-                                      },
-                                      child: const Text('Ok'))
-                                ],
-                              ));
+                        catch (e) {
+                          if (mounted) {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                      title: const Text("Error"),
+                                      content: Text(e.toString()),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              if (mounted) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                              }
+                                            },
+                                            child: const Text('Ok'))
+                                      ],
+                                    ));
+                          }
                         }
                       }
                           : null,
                       style: const ButtonStyle().copyWith(
-                        backgroundColor: MaterialStateProperty.all(
-                          _formKey.currentState?.validate() ?? false
-                              ? null
-                              : Colors.grey.shade300,
-                        ),
+                        // backgroundColor: MaterialStateProperty.all(
+                        //   _formKey.currentState?.validate() ?? false
+                        //       ? null
+                        //       : Colors.grey.shade300,
+                        // ),
                       ),
                       child: const Text('Login'),
                     ),

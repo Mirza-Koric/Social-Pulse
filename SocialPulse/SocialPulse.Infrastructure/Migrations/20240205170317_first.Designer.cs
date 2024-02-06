@@ -12,7 +12,7 @@ using SocialPulse.Infrastructure;
 namespace SocialPulse.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240112113901_first")]
+    [Migration("20240205170317_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -62,6 +62,44 @@ namespace SocialPulse.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Answers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AdminId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            QuestionId = 1,
+                            Text = "Absolutely! We're thrilled about the upcoming updates. Get ready for enhanced user customization options, improved performance, and a brand-new feature that will take your experience to the next level. Stay tuned for the big reveal!"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AdminId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            QuestionId = 2,
+                            Text = "Great question! User privacy and data security are our top priorities. We implement robust encryption protocols, conduct regular security audits, and adhere to strict privacy policies. Rest assured, your data is in safe hands!"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AdminId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            QuestionId = 3,
+                            Text = "We're working on creating exciting community events and challenges. Imagine interactive quizzes, themed discussions, and collaborative projects. Your feedback matters, so if you have any event ideas, feel free to share! Let's make this platform even more vibrant together."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AdminId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            QuestionId = 4,
+                            Text = "We use a combination of automated tools and human moderation to ensure content aligns with our guidelines. We're committed to fostering an inclusive and respectful space for everyone. Your reports and feedback play a crucial role in keeping our community healthy!"
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Comment", b =>
@@ -198,6 +236,32 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Conversations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Group", b =>
@@ -564,6 +628,233 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Messages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Just finished a killer workout. What's up with you?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 2, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "I'm just chilling and catching up on some reading. Any exciting plans for the weekend?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 3, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Thinking of hitting the trails for a hike. Nature vibes, you know? What about you?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 4, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "That sounds awesome! I might check out a new coffee shop downtown. Any book recommendations?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 5, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Absolutely! \"The Night Circus\" is a magical read. What kind of books are you into lately?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "I'm on a sci-fi kick lately. Just finished \"Dune\" — epic world-building! Got any sci-fi gems in mind?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Nice choice! \"Neuromancer\" is a classic cyberpunk adventure. What's your favorite sci-fi element?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 7, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Definitely the exploration of AI and its impact on society. Love those thought-provoking themes. What about you?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 8, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Same here! The ethical dilemmas in AI stories always get me thinking. Changing topics, any movie plans for the night?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 9, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Just downloaded a new indie film. \"Eternal Sunshine of the Spotless Mind.\" Heard it's a mind-bender. Have you seen it?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 10, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Absolutely love that one! Jim Carrey in a different light, you know?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 11, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Enjoy the journey! Let me know how you find it.",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 12, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Thanks. Enjoy your hike and have a fantastic weekend!",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Just got tickets to that new comedy show downtown. Interested in joining?",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 2, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Sounds fun! Count me in. When's the show?",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 3, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "It's this Saturday at 8 PM. Perfect way to kick off the weekend!",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 4, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Awesome! Looking forward to it. Anything else happening this week?",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 5, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Not much, just work and the usual. Any movie recommendations for a cozy night in?",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 6, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "How about \"The Grand Budapest Hotel\"? Quirky and entertaining!",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 7, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Great pick! I'll check it out. See you Saturday!",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 8, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Can't wait! See you then!",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ConversationId = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Hello?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ConversationId = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Hi.",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ConversationId = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Hello?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ConversationId = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 1, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Hi!",
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Post", b =>
@@ -769,6 +1060,72 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "I'm curious about the future updates! Can you give us a sneak peek into any upcoming features or improvements?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "How do you ensure the safety and privacy of user data on the platform?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Are there any plans for community events or challenges on the platform? It would be awesome to engage with other users in a fun way!",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "How does content moderation work to ensure a positive and respectful environment?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "I'm curious about the technology behind the scenes. What kind of AI models power the platform, and how do you ensure they're unbiased?",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "Are there plans to expand the app to support different languages and cultures?",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "How can users contribute to the development of the platform? Any plans for a user feedback program?",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            Text = "In case of technical issues or bugs, what's the best way for users to report them and get assistance?",
+                            UserId = 4
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Report", b =>
@@ -1043,6 +1400,72 @@ namespace SocialPulse.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserConversations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConversationId = 1,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ConversationId = 2,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ConversationId = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ConversationId = 3,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ConversationId = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ConversationId = 4,
+                            CreatedAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsDeleted = false,
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Answer", b =>

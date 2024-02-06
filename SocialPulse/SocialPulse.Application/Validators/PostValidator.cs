@@ -11,7 +11,7 @@ namespace SocialPulse.Application
             RuleFor(c => c.Text).NotEmpty().WithErrorCode(ErrorCodes.NotEmpty);
             RuleFor(c => c.UserId).NotNull().WithErrorCode(ErrorCodes.NotNull);
             RuleFor(c => c.GroupId).NotNull().WithErrorCode(ErrorCodes.NotNull);
-            RuleFor(c => c.TagId).NotNull().WithErrorCode(ErrorCodes.NotNull);
+            //RuleFor(c => c.TagId).NotNull().WithErrorCode(ErrorCodes.NotNull);
         }
     }
 }
