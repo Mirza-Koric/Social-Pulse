@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-class AccessProvider extends ChangeNotifier{
+class AccessProvider extends ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "api/Access/SignIn";
 
@@ -32,7 +32,7 @@ class AccessProvider extends ChangeNotifier{
 
       return result;
     } else {
-      throw  Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
 
@@ -52,18 +52,20 @@ class AccessProvider extends ChangeNotifier{
 
     if (isValidResponse(response)) {
     } else {
-      throw  Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
 }
 
-  bool isValidResponse(Response response) {
-    if (response.statusCode < 299) {
-      return true;
-    } else if (response.statusCode == 401) {
-      throw Exception("Unauthorized");
-    } else {
-      throw Exception(
-          "Something bad happened please try again, Status code: ${response.statusCode}");
-    }
+bool isValidResponse(Response response) {
+  if (response.statusCode < 299) {
+    return true;
+  } else if (response.statusCode == 401) {
+    throw Exception("Unauthorized");
+  } else if (response.statusCode == 400) {
+    throw Exception("Wrong email or password");
+  } else {
+    throw Exception(
+        "Something bad happened please try again, Status code: ${response.statusCode}");
   }
+}

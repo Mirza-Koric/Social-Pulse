@@ -13,5 +13,14 @@ namespace SocialPulse.Application
         {
 
         }
+
+        public async Task<bool> Exists(int postId, CancellationToken cancellationToken)
+        {
+            var book = await CurrentRepository.GetByIdAsync(postId, cancellationToken);
+
+            if (book == null)
+                return false;
+            return true;
+        }
     }
 }

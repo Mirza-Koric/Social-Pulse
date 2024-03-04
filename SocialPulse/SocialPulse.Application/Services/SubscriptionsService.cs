@@ -13,5 +13,28 @@ namespace SocialPulse.Application
         {
 
         }
+
+        public async Task PaySubscriptionAsync(int userId, CancellationToken cancellationToken = default)
+        {
+            var subscription = await CurrentRepository.GetByUserIdAsync(userId, cancellationToken);
+
+            var newSub = new Subscription
+            {
+                UserId = userId,
+                Active = true,
+                ExpirationDate = DateTime.Now.AddMonths(1)
+            };
+
+            if (subscription == null)
+            {
+                await CurrentRepository.AddAsync(newSub, cancellationToken);
+            }
+            else 
+            {
+                CurrentRepository.Update(newSub);
+            }
+
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
+        }
     }
 }

@@ -25,7 +25,14 @@ namespace SocialPulse.Infrastructure
             {
                 var entity = (BaseEntity)entry.Entity;
 
-                if (entry.State == EntityState.Modified) entity.ModifiedAt = DateTime.Now;
+                if (entry.State == EntityState.Modified) 
+                {
+                    var databaseValues = entry.GetDatabaseValues();
+                    var originalCreatedAt = (DateTime)databaseValues.GetValue<DateTime>("CreatedAt");
+                    entity.CreatedAt = (DateTime)originalCreatedAt;
+
+                    entity.ModifiedAt = DateTime.Now;
+                }
                 else if (entry.State == EntityState.Added) entity.CreatedAt = DateTime.Now;
             }
         }

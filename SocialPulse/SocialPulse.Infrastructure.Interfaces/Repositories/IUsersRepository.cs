@@ -9,5 +9,6 @@ namespace SocialPulse.Infrastructure.Interfaces
         }
 
         Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
+        List<User> UsersWhoLikedPosts();
     }
 }

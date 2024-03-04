@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mobile_socialpulse/pages/home_page.dart';
 import 'package:mobile_socialpulse/pages/login_page.dart';
 import 'package:mobile_socialpulse/providers/access_provider.dart';
 import 'package:mobile_socialpulse/providers/answer_provider.dart';
@@ -13,6 +12,7 @@ import 'package:mobile_socialpulse/providers/message_provider.dart';
 import 'package:mobile_socialpulse/providers/image_provider.dart';
 import 'package:mobile_socialpulse/providers/post_provider.dart';
 import 'package:mobile_socialpulse/providers/question_provicer.dart';
+import 'package:mobile_socialpulse/providers/recommend_result_provider.dart';
 import 'package:mobile_socialpulse/providers/report_provider.dart';
 import 'package:mobile_socialpulse/providers/subscription_provider.dart';
 import 'package:mobile_socialpulse/providers/tag_provider.dart';
@@ -43,10 +43,10 @@ void main() {
     ChangeNotifierProvider(create: (context) => TagProvider()),
     ChangeNotifierProvider(create: (context) => UserConversationProvider()),
     ChangeNotifierProvider(create: (context) => UserProvider()),
+    ChangeNotifierProvider(create: (context) => RecommendResultProvider())
   ],
     child: const MyApp(),
   ));
-
 }
 
 class MyApp extends StatefulWidget {
@@ -57,12 +57,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SocialPulse mobile',
       theme: AppTheme.themeData,
-      home: const LoginPage(), //only for testing
+      home: const LoginPage(),
     );
   }
 }
@@ -75,8 +76,6 @@ class MyHttpOverrides extends HttpOverrides{
         (X509Certificate cert, String host, int port) => true;
   }
 }
-
-
 
 class AppTheme {
   static final textFormFieldBorder = OutlineInputBorder(

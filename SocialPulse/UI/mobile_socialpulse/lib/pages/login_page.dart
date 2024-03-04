@@ -64,13 +64,6 @@ class _LoginPageState extends State<LoginPage> {
                       'Sign in to your\nAccount',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      'Sign in to your Account',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
                   ],
                 ),
               ),
@@ -85,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'Email',
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
-                      //onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                           return value!.isEmpty
                               ? 'Please, Enter Email Address'
@@ -100,7 +92,6 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'Password',
                       keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.done,
-                      //onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                           return value!.isEmpty
                               ? 'Please, Enter Password'
@@ -145,7 +136,6 @@ class _LoginPageState extends State<LoginPage> {
                             isLoading = true;
                           });
                         }
-
                         var email = _emailController.text;
                         var password = _passwordController.text;
 
@@ -171,11 +161,12 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }
                           else {
+                            if(mounted){
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(builder: (context) {
                                   return const HomePage();
                                 }));
-                          }
+                          }}
                         }
                         catch (e) {
                           if (mounted) {
@@ -201,15 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ));
                           }
                         }
-                      }
-                          : null,
-                      style: const ButtonStyle().copyWith(
-                        // backgroundColor: MaterialStateProperty.all(
-                        //   _formKey.currentState?.validate() ?? false
-                        //       ? null
-                        //       : Colors.grey.shade300,
-                        // ),
-                      ),
+                      }: null,
                       child: const Text('Login'),
                     ),
                     const SizedBox(
@@ -276,10 +259,6 @@ class AppConstants {
   static final RegExp emailRegex = RegExp(
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.([a-zA-Z]{2,})+",
   );
-
-  // static final RegExp passwordRegex = RegExp(
-  //   r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&_])[A-Za-z\d@#$!%*?&_].{7,}$',
-  // );
 }
 
 
@@ -355,12 +334,3 @@ extension ContextExtension on BuildContext {
           ),
         );
 }
-
-
-// ScaffoldMessenger.of(context).showSnackBar(
-//   const SnackBar(
-//     content: Text('Logged In!'),
-//   ),
-// );
-// _emailController.clear();
-// _passwordController.clear();

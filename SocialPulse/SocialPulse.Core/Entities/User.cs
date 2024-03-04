@@ -18,7 +18,7 @@
         public ICollection<Answer> Answers { get; set; } = null!;
         public ICollection<Message> Messages { get; set; } = null!;
         public ICollection<UserConversation> Conversations { get; set; } = null!;
-        public Subscription? Subscription { get; set; }
+        public Subscription Subscription { get; set; } = null!;
 
     }
 }

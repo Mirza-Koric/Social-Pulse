@@ -13,9 +13,10 @@ namespace SocialPulse.Infrastructure
 
         public override async Task<PagedList<Question>> GetPagedAsync(QuestionSearchObject searchObject, CancellationToken cancellationToken)
         {
-            return await DbSet.Include(q => q.Answer)
+            return await DbSet.Include(q => q.Answer).Include(q => q.User)
                 .Where(q => searchObject.Text == null || q.Text.ToLower().Contains(searchObject.Text.ToLower()))
                 .Where(q => searchObject.UserId == null || q.UserId == searchObject.UserId)
+                .Where(q => searchObject.Answered == null || (searchObject.Answered==true ? q.Answer!=null : q.Answer==null))
                 .OrderByDescending(q => q.CreatedAt)
                 .ToPagedListAsync(searchObject, cancellationToken);
         }

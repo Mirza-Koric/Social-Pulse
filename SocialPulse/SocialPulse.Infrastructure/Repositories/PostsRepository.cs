@@ -19,8 +19,21 @@ namespace SocialPulse.Infrastructure
                 .Where(p => searchObject.UserId == null || p.UserId == searchObject.UserId)
                 .Where(p => searchObject.GroupId == null || p.GroupId == searchObject.GroupId)
                 .Where(p => searchObject.TagId == null || p.TagId == searchObject.TagId)
+                .Where(p => searchObject.IsAdvert == null || p.IsAdvert == searchObject.IsAdvert)
+                .Where(p => searchObject.IsDeleted == null || p.IsDeleted  == searchObject.IsDeleted)
+                .Where(p => searchObject.CreatedAt == null ||p.CreatedAt >= searchObject.CreatedAt)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToPagedListAsync(searchObject, cancellationToken);
+        }
+
+        public override async Task<Post> GetByIdAsync (int id, CancellationToken cancellationToken)
+        {
+            return await DbSet.Include(p=>p.Group).Include(p=>p.Likes).Include(p => p.Comments).Include(p => p.User).Include(p => p.Images).Include(p => p.Tag).FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public List<Post> GetExceptId(int id)
+        {
+            return DbSet.Where(p => p.Id != id).ToList();
         }
     }
 }

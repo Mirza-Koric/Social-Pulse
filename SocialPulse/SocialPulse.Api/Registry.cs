@@ -80,7 +80,6 @@ namespace SocialPulse.Api
         public static void AddOther(this IServiceCollection services)
         {
             services.AddScoped<IAccessManager, AccessManager>();
-            //services.AddSingleton<IEnumsService, EnumsService>();
             services.AddSingleton<ICryptoService, CryptoService>();
         }
     }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_socialpulse/pages/profile_page.dart';
+import 'package:mobile_socialpulse/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../models/post.dart';
 import '../models/search_result.dart';
+import '../models/user.dart';
 import '../providers/post_provider.dart';
 import '../widgets/postWidget.dart';
 import '../utils/utils.dart';
@@ -20,10 +22,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   List<Widget> body = [
-    Text("placeholder"),
-    CreatePostPage(),
-    ProfilePage(),
+    const Text("placeholder"),
+    const CreatePostPage(),
+    const ProfilePage(),
   ];
+
+  late UserProvider _userProvider = UserProvider();
+  User? userResult;
 
   late PostProvider _postProvider = PostProvider();
   SearchResult<Post>? postResult;
@@ -35,14 +40,21 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     _postProvider = context.read<PostProvider>();
+    _userProvider = context.read<UserProvider>();
 
     fetchData();
-
   }
 
   Future<void> fetchData() async {
     try {
-      postResult = await _postProvider.getPaged();
+      userResult = await _userProvider.getById(int.parse(Authentification.tokenDecoded?["Id"]));
+      bool? isSubscribed = userResult!.subscription?.active;
+
+      postResult = await _postProvider.getPaged(
+          filter: {
+            'pageSize':10,
+            'isAdvert': isSubscribed==null ? null : isSubscribed==false ? null : false});
+
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -55,18 +67,19 @@ class _HomePageState extends State<HomePage> {
     }
 
     fetchedPosts = postResult!.items;
-    body[0]=SingleChildScrollView(child: Column(children: tenPosts(),),);
+    body[0]=SingleChildScrollView(child: Column(children: generatePosts()));
 
   }
 
-  List<PostWidget> tenPosts() {
+  List<PostWidget> generatePosts() {
     List<PostWidget> posts = [];
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < fetchedPosts!.length; i++) {
       posts.add(PostWidget(
           id: fetchedPosts![i].id!,
           content: fetchedPosts![i].text!,
           title: fetchedPosts![i].title!,
+          isAdvert: fetchedPosts![i].isAdvert!,
           groupId: fetchedPosts![i].groupId!,
           groupName: fetchedPosts![i].group!.name!,
           user: fetchedPosts![i].user!,
@@ -88,22 +101,6 @@ class _HomePageState extends State<HomePage> {
               centerTitle: true,
             ),
             body: body[_currentIndex],
-            // SingleChildScrollView(
-            //   child: Column(
-            //     children: tenPosts(),
-
-                // children: [PostWidget(
-                //     id:fetchedPosts![0].id!,
-                //     content:fetchedPosts![0].text!,
-                //     title: fetchedPosts![0].title!,
-                //     group: fetchedPosts![0].group!.name!,
-                //     user: fetchedPosts![0].user!,
-                //     tag: fetchedPosts![0].tag)],
-                // children: [
-                //   FilledButton(onPressed: ()=>{print(fetchedPosts![0].title)}, child: Text("Press"))
-                // ],
-              //),
-            //),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: _currentIndex,
               onTap: (int newIndex) {

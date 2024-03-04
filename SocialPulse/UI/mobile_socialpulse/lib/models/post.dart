@@ -14,6 +14,7 @@ class Post{
   int? id;
   String? title;
   String? text;
+  bool? isAdvert;
   int? userId;
   User? user;
   int? groupId;
@@ -22,12 +23,13 @@ class Post{
   Tag? tag;
   List<Comment>? comments;
   List<Like>? likes;
-    List<Image>? images;
+  List<Image>? images;
 
   Post (
       this.id,
       this.title,
       this.text,
+      this.isAdvert,
       this.userId,
       this.user,
       this.groupId,

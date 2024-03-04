@@ -10,6 +10,7 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       json['id'] as int?,
       json['title'] as String?,
       json['text'] as String?,
+      json['isAdvert'] as bool?,
       json['userId'] as int?,
       json['user'] == null
           ? null
@@ -37,6 +38,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'text': instance.text,
+      'isAdvert': instance.isAdvert,
       'userId': instance.userId,
       'user': instance.user,
       'groupId': instance.groupId,

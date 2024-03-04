@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SocialPulse.Application.Interfaces;
+using SocialPulse.Application.Services;
 using SocialPulse.Core;
 
 namespace SocialPulse.Application
@@ -23,6 +24,7 @@ namespace SocialPulse.Application
             services.AddScoped<ITagsService,TagsService>();
             services.AddScoped<IUserConversationsService, UserConversationsService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IRecommendResultsService, RecommendResultsService>();
         }
 
         public static void AddValidators(this IServiceCollection services)
@@ -41,6 +43,7 @@ namespace SocialPulse.Application
             services.AddScoped<IValidator<TagUpsertDto>,TagValidator>();
             services.AddScoped<IValidator<UserConversationUpsertDto>, UserConversationValidator>();
             services.AddScoped<IValidator<UserUpsertDto>,UserValidator>();
+            services.AddScoped<IValidator<RecommendResultUpsertDto>, RecommendResultValidator>();
         }
     }
 }

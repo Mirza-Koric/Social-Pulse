@@ -19,6 +19,7 @@ namespace SocialPulse.Infrastructure
         public DbSet<Tag> Tags { get; set; } = null!;
         public DbSet<UserConversation> UserConversations { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<RecommendResult> RecommendResults { get; set; } = null!;
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)

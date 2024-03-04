@@ -7,5 +7,6 @@ namespace SocialPulse.Infrastructure.Interfaces
         public string? Username { get; set; }
         public Role? Role { get; set; }
         public DateTime? BirthDate { get; set; }
+        public bool? Subscribed { get; set; }
     }
 }

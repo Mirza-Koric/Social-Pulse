@@ -9,5 +9,13 @@ namespace SocialPulse.Infrastructure
         public TagsRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
         }
+
+        public override async Task<PagedList<Tag>> GetPagedAsync(TagSearchObject searchObject, CancellationToken cancellationToken)
+        {
+            return await DbSet
+                .Where(g => searchObject.Name == null || g.Name.ToLower().Contains(searchObject.Name.ToLower()))
+                .OrderByDescending(p => p.CreatedAt)
+                .ToPagedListAsync(searchObject, cancellationToken);
+        }
     }
 }

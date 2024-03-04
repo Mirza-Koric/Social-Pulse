@@ -6,12 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:mobile_socialpulse/pages/chats_page.dart';
 import 'package:mobile_socialpulse/pages/login_page.dart';
 import 'package:mobile_socialpulse/pages/qnA_page.dart';
+import 'package:mobile_socialpulse/pages/subscription_page.dart';
 import 'package:provider/provider.dart';
-
 import '../models/user.dart';
 import '../providers/user_provider.dart';
 import '../utils/utils.dart';
-import 'chatRoom_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -22,7 +21,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool isLoading = true;
-  bool canEdit = true;
   bool editing = false;
 
   final _formKey = GlobalKey<FormBuilderState>();
@@ -92,16 +90,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                     _formKey.currentState?.save();
 
                                     if (_formKey.currentState!.validate()) {
-                                      Map<String, dynamic> request = Map.of(
-                                          _formKey.currentState!.value);
+                                      Map<String, dynamic> request =
+                                          Map.of(_formKey.currentState!.value);
 
                                       request['id'] = int.parse(
-                                          Authentification
-                                              .tokenDecoded?["Id"]);
+                                          Authentification.tokenDecoded?["Id"]);
 
-                                      request['birthDate'] = dateEncode(
-                                          _formKey.currentState
-                                              ?.value['birthDate']);
+                                      request['birthDate'] = dateEncode(_formKey
+                                          .currentState?.value['birthDate']);
 
                                       await _userProvider.update(request);
 
@@ -114,8 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     }
                                   } catch (e) {
                                     if (mounted) {
-                                      alertBox(
-                                          context, "Error", e.toString());
+                                      alertBox(context, "Error", e.toString());
                                     }
                                   }
                                 }
@@ -124,32 +119,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                   editing = !editing;
                                 });
                               },
-                              child: canEdit
-                                  ? Container(
-                                      height: 70,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15),
-                                        color: Colors.lime,
+                              child: Container(
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.lime,
+                                  ),
+                                  width: screenWidth * 0.30,
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Container(
+                                      margin: const EdgeInsets.only(right: 28),
+                                      child: Icon(
+                                        editing ? Icons.save : Icons.edit,
+                                        color: const Color(0xFF444444),
+                                        size: 32,
                                       ),
-                                      width: screenWidth * 0.30,
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Container(
-                                          margin: const EdgeInsets.only(
-                                              right: 28),
-                                          child: Icon(
-                                            editing ? Icons.save : Icons.edit,
-                                            color: const Color(0xFF444444),
-                                            size: 32,
-                                          ),
-                                        ),
-                                      ))
-                                  : const SizedBox(width: 0),
+                                    ),
+                                  )),
                             ),
                           ),
                           Container(
-                            width: canEdit ? screenWidth * 0.7 : screenWidth,
+                            width: screenWidth * 0.7,
                             height: 70,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
@@ -277,8 +268,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       const SizedBox(width: 10.0),
                                       editing
                                           ? Expanded(
-                                              child:
-                                                  FormBuilderDateTimePicker(
+                                              child: FormBuilderDateTimePicker(
                                                 name: 'birthDate',
                                                 format:
                                                     DateFormat('dd/MM/yyyy'),
@@ -296,13 +286,33 @@ class _ProfilePageState extends State<ProfilePage> {
                                               ),
                                             )
                                           : Text(
-                                              formatDate(
-                                                  userResult!.birthDate!,
+                                              formatDate(userResult!.birthDate!,
                                                   [d, '.', m, '.', yyyy]),
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   color: Color(0xFF444444)),
                                             )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.diamond_outlined,
+                                        color: Color(0xFF8C981A),
+                                        size: 30,
+                                      ),
+                                      const SizedBox(width: 10.0),
+                                      Text(
+                                        userResult!.subscription == null
+                                            ? "You have a regular account"
+                                            : "You have a premium account",
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color(0xFF444444)),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -318,25 +328,29 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Row(
                             children: [
-                              customContainer(
-                                  TextButton.icon(
-                                    onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => const Chats()));
-                                    },
-                                    icon: const Icon(Icons.chat_bubble, color: Color(0xFF394949),),
-                                    label: const Text("Chats", style: TextStyle(color: Colors.black)),
-                                  )
-                              ),
-
+                              customContainer(TextButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => const Chats()));
+                                },
+                                icon: const Icon(
+                                  Icons.chat_bubble,
+                                  color: Color(0xFF394949),
+                                ),
+                                label: const Text("Chats",
+                                    style: TextStyle(color: Colors.black)),
+                              )),
                               customContainer(
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     TextButton.icon(
                                         onPressed: () {
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context)=>const QnaPage()));
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const QnaPage()));
                                         },
                                         icon: const Icon(Icons.question_answer,
                                             color: Color(0xFF394949)),
@@ -349,71 +363,93 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ],
                           ),
-
                           Row(
                             children: [
+                              customContainer(TextButton.icon(
+                                onPressed: userResult!.subscription == null ||
+                                        userResult!
+                                            .subscription!.expirationDate!
+                                            .isBefore(DateTime.now())
+                                    ? () {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const SubscriptionPage()))
+                                            .then((value) => fetchData());
+                                      }
+                                    : null,
+                                icon: const Icon(
+                                  Icons.diamond_outlined,
+                                  color: Color(0xFF394949),
+                                ),
+                                label: const Text("Premium",
+                                    style: TextStyle(color: Colors.black)),
+                              )),
                               customContainer(
-                                TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.diamond_outlined, color: Color(0xFF394949),),
-                                  label: const Text("Premium", style: TextStyle(color: Colors.black)),
-                                )
-                              ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    TextButton.icon(
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                    title:
+                                                        const Text("Log out"),
+                                                    content: const Text(
+                                                        "Are you sure you want to log out from the app?"),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: (() {
+                                                          Navigator.pop(
+                                                              context);
+                                                        }),
+                                                        child: const Text(
+                                                            "Cancel",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black)),
+                                                      ),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            try {
+                                                              Authentification
+                                                                  .token = '';
 
-                          customContainer(
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                TextButton.icon(
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                                title: const Text("Log out"),
-                                                content: const Text(
-                                                    "Are you sure you want to log out from the app?"),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: (() {
-                                                      Navigator.pop(context);
-                                                    }),
-                                                    child: const Text("Cancel",
-                                                        style: TextStyle(
-                                                            color: Colors.black)),
-                                                  ),
-                                                  TextButton(
-                                                      onPressed: () async {
-                                                        try {
-                                                          Authentification.token ='';
-                                                          Navigator.pushAndRemoveUntil(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (_) =>
-                                                                      const LoginPage()),
-                                                              (route) => false);
-                                                        } catch (e) {
-                                                          alertBoxMoveBack(
-                                                              context,
-                                                              "Error",
-                                                              e.toString());
-                                                        }
-                                                      },
-                                                      child: const Text("Confirm",
-                                                          style: TextStyle(
-                                                              color: Colors.red)))
-                                                ],
-                                              ));
-                                    },
-                                    icon: const Icon(Icons.logout,
-                                        color: Color(0xFF394949)),
-                                    label: const Text(
-                                      "Log out",
-                                      style: TextStyle(color: Colors.black),
-                                    )),
-                              ],
-                            ),
-                          ),
+                                                              Navigator.pushAndRemoveUntil(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (_) =>
+                                                                              const LoginPage()),
+                                                                  (route) =>
+                                                                      false);
+                                                            } catch (e) {
+                                                              alertBoxMoveBack(
+                                                                  context,
+                                                                  "Error",
+                                                                  e.toString());
+                                                            }
+                                                          },
+                                                          child: const Text(
+                                                              "Confirm",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .red)))
+                                                    ],
+                                                  ));
+                                        },
+                                        icon: const Icon(Icons.logout,
+                                            color: Color(0xFF394949)),
+                                        label: const Text(
+                                          "Log out",
+                                          style: TextStyle(color: Colors.black),
+                                        )),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -428,7 +464,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
 Container customContainer(Widget child) {
   return Container(
-    margin: const EdgeInsets.only(left: 15,top: 15, right: 15, bottom: 5),
+    margin: const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 5),
     padding: const EdgeInsets.all(15),
     width: 160,
     decoration: BoxDecoration(
@@ -446,5 +482,3 @@ Container customContainer(Widget child) {
     child: child,
   );
 }
-
-

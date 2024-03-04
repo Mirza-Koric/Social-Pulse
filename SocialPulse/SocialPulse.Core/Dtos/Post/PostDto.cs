@@ -4,6 +4,7 @@
     {
         public string Title { get; set; } = null!;
         public string Text { get; set; } = null!;
+        public bool IsAdvert { get; set; }
 
         public int UserId { get; set; }
         public UserDto User { get; set; } = null!;

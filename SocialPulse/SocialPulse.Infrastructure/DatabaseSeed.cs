@@ -5,7 +5,13 @@ namespace SocialPulse.Infrastructure
 {
     public partial class DatabaseContext
     {
-        private readonly DateTime _dateTime = new(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Local);
+        private readonly DateTime _dateTime = DateTime.Now.AddYears(-1);
+        private readonly DateTime _dateTime2 = DateTime.Now.AddMonths(-6);
+        private readonly DateTime _dateTime3 = DateTime.Now;
+
+
+        static string imageString = "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";
+        private readonly byte[] _image = Convert.FromBase64String(imageString);
 
         private void SeedData(ModelBuilder modelBuilder)
         {
@@ -20,6 +26,8 @@ namespace SocialPulse.Infrastructure
             SeedConversations(modelBuilder);
             SeedMessages(modelBuilder);
             SeedUserConversations(modelBuilder);
+            SeedSubscriptions(modelBuilder);
+            SeedImages(modelBuilder);
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)
@@ -58,7 +66,7 @@ namespace SocialPulse.Infrastructure
                     PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", //Plain text: test
                     PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
                     BirthDate = _dateTime,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new User
@@ -70,7 +78,7 @@ namespace SocialPulse.Infrastructure
                     PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", //Plain text: test
                     PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
                     BirthDate = _dateTime,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new User
@@ -82,10 +90,33 @@ namespace SocialPulse.Infrastructure
                     PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", //Plain text: test
                     PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
                     BirthDate = _dateTime,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new User
+                {
+                    Id = 6,
+                    Email = "user6@mail.com",
+                    Username = "TestUser6",
+                    Role = Role.User,
+                    PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", //Plain text: test
+                    PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
+                    BirthDate = _dateTime,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new User
+                {
+                    Id = 7,
+                    Email = "user7@mail.com",
+                    Username = "TestUser7",
+                    Role = Role.Administrator,
+                    PasswordHash = "KnHtwSBaEBRQ4kirxu8qLLU+20BraHV95Aj4JJcTZyQ=", //Plain text: test
+                    PasswordSalt = "0dUI00v6BWmtxp8JCAyw9w==",
+                    BirthDate = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 });
-
         }
 
         private void SeedGroups(ModelBuilder modelBuilder)
@@ -122,6 +153,14 @@ namespace SocialPulse.Infrastructure
                     Description = "The goal of this group is to provide a place for discussion and news about films",
                     CreatedAt = _dateTime,
                     ModifiedAt = null
+                },
+                new Group
+                {
+                    Id = 5,
+                    Name = "Jokes",
+                    Description = "The internets largest humor depository",
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
                 });
         }
 
@@ -155,6 +194,20 @@ namespace SocialPulse.Infrastructure
                 Name = "Media",
                 CreatedAt = _dateTime,
                 ModifiedAt = null
+            },
+            new Tag
+            {
+                Id = 5,
+                Name = "Serious",
+                CreatedAt = _dateTime,
+                ModifiedAt = null
+            },
+            new Tag
+            {
+                Id = 6,
+                Name = "Interesting",
+                CreatedAt = _dateTime,
+                ModifiedAt = null
             });
         }
 
@@ -166,6 +219,7 @@ namespace SocialPulse.Infrastructure
                     Id = 1,
                     Title = "Game On!",
                     Text = "Whether it's a slam dunk, a goal celebration, or a touchdown dance, the adrenaline rush of sports is unmatched! What's your favorite sport, and which team has your heart? Drop your cheers in the comments below!",
+                    IsAdvert = true,
                     UserId = 2,
                     GroupId = 1,
                     TagId = null,
@@ -214,7 +268,7 @@ namespace SocialPulse.Infrastructure
                     GroupId = 2,
                     TagId = null,
                     CreatedAt = _dateTime,
-                    ModifiedAt = null
+                    ModifiedAt = null,
                 },
                 new Post
                 {
@@ -231,7 +285,7 @@ namespace SocialPulse.Infrastructure
                 {
                     Id = 7,
                     Title = "Melody Magic",
-                    Text = "Music is the soundtrack of our lives, and every beat tells a story. What song is playing on repeat for you right now? Share your current music obsession and let's create a playlist together! ",
+                    Text = "Music is the soundtrack of our lives, and every beat tells a story. What song is playing on repeat for you right now? Share your current music obsession and let's create a playlist together!",
                     UserId = 5,
                     GroupId = 3,
                     TagId = null,
@@ -243,10 +297,11 @@ namespace SocialPulse.Infrastructure
                     Id = 8,
                     Title = "Musical Memories Monday!",
                     Text = "Mondays are for reminiscing! Share a musical memory that takes you back in time. Whether it's a concert, a road trip playlist, or a special dance moment, let's rewind the clock and relive the magic together.",
+                    IsAdvert = true,
                     UserId = 3,
                     GroupId = 3,
                     TagId = 3,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Post
@@ -257,7 +312,7 @@ namespace SocialPulse.Infrastructure
                     UserId = 4,
                     GroupId = 3,
                     TagId = null,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Post
@@ -268,7 +323,7 @@ namespace SocialPulse.Infrastructure
                     UserId = 2,
                     GroupId = 4,
                     TagId = null,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Post
@@ -276,10 +331,11 @@ namespace SocialPulse.Infrastructure
                     Id = 11,
                     Title = "Cinematic Classics Countdown!",
                     Text = "Dive into the archives with me! What classic movie holds a special place in your heart? Share your all-time favorite cinematic masterpiece, and let's reminisce about the golden era of film together.",
+                    IsAdvert = true,
                     UserId = 3,
                     GroupId = 4,
                     TagId = 3,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Post
@@ -290,9 +346,322 @@ namespace SocialPulse.Infrastructure
                     UserId = 5,
                     GroupId = 4,
                     TagId = null,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 13,
+                    Title = "Laughter is the Best Medicine!",
+                    Text = "Life's too short to be serious all the time! Let's brighten up our day with some laughter. Share your favorite joke in the comments below and spread the joy! Remember, a good chuckle can turn any day around. Let's keep the laughter rolling!",
+                    UserId = 2,
+                    GroupId = 5,
+                    TagId = 2,
                     CreatedAt = _dateTime,
                     ModifiedAt = null
-                });
+                },
+                new Post
+                {
+                    Id = 14,
+                    Title = "Funny Friday Vibes!",
+                    Text = "TGIF, folks! Let's kick off the weekend with a dose of humor. Share your funniest memes, gifs, or jokes that never fail to make you crack a smile. Laughter is contagious, so let's spread the joy and start the weekend on a hilarious note!",
+                    UserId = 3,
+                    GroupId = 5,
+                    TagId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 15,
+                    Title = "Caption This Challenge!",
+                    Text = "Calling all witty minds! It's time for a caption challenge. Check out the hilarious photo below and let your creativity run wild. Reply with your funniest captions, and let's see who can come up with the most side-splitting one-liner!",
+                    UserId = 4,
+                    GroupId = 5,
+                    TagId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 16,
+                    Title = "Game Day Ready!",
+                    Text = "Let's do this!",
+                    IsAdvert = true,
+                    UserId = 2,
+                    GroupId = 1,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 17,
+                    Title = "Sports Heroes",
+                    Text = "Who's yours?",
+                    UserId = 3,
+                    GroupId = 1,
+                    TagId = null,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 18,
+                    Title = "Victory Cheers!",
+                    Text = "Celebrating another win!",
+                    UserId = 4,
+                    GroupId = 1,
+                    TagId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 19,
+                    Title = "Keep Pushing!",
+                    Text = "Practice pays off.",
+                    UserId = 5,
+                    GroupId = 1,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 20,
+                    Title = "Thrill of Competition",
+                    Text = "Nothing beats it.",
+                    UserId = 6,
+                    GroupId = 1,
+                    TagId = null,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 21,
+                    Title = "Musical Escape",
+                    Text = "Tune in and drift away.",
+                    UserId = 2,
+                    GroupId = 3,
+                    TagId = null,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 22,
+                    Title = "Soulful Lyrics",
+                    Text = "Poetry in motion.",
+                    UserId = 3,
+                    GroupId = 3,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 23,
+                    Title = "Volume Up, World Off",
+                    Text = "Let the music take over.",
+                    IsAdvert = true,
+                    UserId = 4,
+                    GroupId = 3,
+                    TagId = 2,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 24,
+                    Title = "Favorite Playlist Vibes",
+                    Text = "Can't get enough.",
+                    UserId = 5,
+                    GroupId = 3,
+                    TagId = null,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 25,
+                    Title = "Rhythm & Harmony",
+                    Text = "Music speaks louder.",
+                    UserId = 6,
+                    GroupId = 3,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 26,
+                    Title = "Movie Night Essentials",
+                    Text = "Popcorn and chill.",
+                    IsAdvert = true,
+                    UserId = 2,
+                    GroupId = 4,
+                    TagId = 3,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 27,
+                    Title = "Lights, Camera, Genre?",
+                    Text = "What's your pick?",
+                    UserId = 3,
+                    GroupId = 4,
+                    TagId = null,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 28,
+                    Title = "Plot Twist!",
+                    Text = "Mind blown.",
+                    UserId = 4,
+                    GroupId = 4,
+                    TagId = 2,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 29,
+                    Title = "Movie Marathon Time",
+                    Text = "Cozy up and binge.",
+                    UserId = 5,
+                    GroupId = 4,
+                    TagId = null,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 30,
+                    Title = "Cinematic Marvels",
+                    Text = "Captivating moments.",
+                    UserId = 6,
+                    GroupId = 4,
+                    TagId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 31,
+                    Title = "Staying Informed",
+                    Text = "Eyes on the headlines.",
+                    UserId = 2,
+                    GroupId = 2,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 32,
+                    Title = "Knowledge is Key",
+                    Text = "Stay ahead of the curve.",
+                    UserId = 3,
+                    GroupId = 2,
+                    TagId = null,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 33,
+                    Title = "Breaking News Alert",
+                    Text = "Stay tuned.",
+                    IsAdvert = true,
+                    UserId = 4,
+                    GroupId = 2,
+                    TagId = null,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 34,
+                    Title = "Truth Seekers Unite",
+                    Text = "Fact-checking matters.",
+                    UserId = 5,
+                    GroupId = 2,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 35,
+                    Title = "Diverse Perspectives",
+                    Text = "Broaden your horizons.",
+                    UserId = 6,
+                    GroupId = 2,
+                    TagId = null,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 36,
+                    Title = "Spread the Laughs",
+                    Text = "Got a joke? Share away!",
+                    UserId = 2,
+                    GroupId = 5,
+                    TagId = null,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 37,
+                    Title = "Monday Funnies",
+                    Text = " Let's lighten up.",
+                    UserId = 3,
+                    GroupId = 5,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 38,
+                    Title = "Knock-Knock!",
+                    Text = "Who's there?",
+                    UserId = 4,
+                    GroupId = 5,
+                    TagId = 2,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 39,
+                    Title = "Laughter is Medicine",
+                    Text = "Healing through humor.",
+                    UserId = 5,
+                    GroupId = 5,
+                    TagId = null,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Post
+                {
+                    Id = 40,
+                    Title = "Dad Jokes Galore",
+                    Text = "Brace yourselves.",
+                    UserId = 6,
+                    GroupId = 5,
+                    TagId = null,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                }
+                );
         }
 
         private void SeedComments(ModelBuilder modelBuilder)
@@ -331,7 +700,7 @@ namespace SocialPulse.Infrastructure
                     Text = "My mood instantly lifts when I read about acts of kindness. Share a heartwarming news story that made your day!",
                     UserId = 5,
                     PostId = 6,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Comment
@@ -340,7 +709,7 @@ namespace SocialPulse.Infrastructure
                     Text = "Usually all about pop, but diving into classical this week. Any recommendations for a newbie?",
                     UserId = 2,
                     PostId = 9,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Comment
@@ -349,7 +718,7 @@ namespace SocialPulse.Infrastructure
                     Text = "Jazz is my guilty pleasure! Drop your favorite jazz tune, and let's create a smooth playlist together.",
                     UserId = 3,
                     PostId = 9,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Comment
@@ -358,7 +727,7 @@ namespace SocialPulse.Infrastructure
                     Text = "Casablanca is an absolute classic! What's your favorite line from an old-school movie that still gives you chills?",
                     UserId = 5,
                     PostId = 11,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Comment
@@ -367,9 +736,100 @@ namespace SocialPulse.Infrastructure
                     Text = "Bringing back the nostalgia with The Breakfast Club! Which classic film takes you on a trip down memory lane?",
                     UserId = 5,
                     PostId = 11,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 9,
+                    Text = "Let's go, team!",
+                    UserId = 3,
+                    PostId = 16,
                     CreatedAt = _dateTime,
                     ModifiedAt = null
-                });
+                },
+                new Comment
+                {
+                    Id = 10,
+                    Text = "That winning feeling never gets old!",
+                    UserId = 2,
+                    PostId = 18,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 11,
+                    Text = "Music is my happy place!",
+                    UserId = 4,
+                    PostId = 21,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 12,
+                    Text = "Getting lost in the melody.",
+                    UserId = 5,
+                    PostId = 23,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 13,
+                    Text = "Popcorn ready, movie queued!",
+                    UserId = 6,
+                    PostId = 26,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 14,
+                    Text = "Didn't see that coming!",
+                    UserId = 3,
+                    PostId = 28,
+                    CreatedAt = _dateTime3,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 15,
+                    Text = "Keeping up with the headlines.",
+                    UserId = 5,
+                    PostId = 31,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 16,
+                    Text = "Excited to see what's happening!",
+                    UserId = 6,
+                    PostId = 33,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 17,
+                    Text = "Ready for some good laughs!",
+                    UserId = 5,
+                    PostId = 36,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Comment
+                {
+                    Id = 18,
+                    Text = "Bring on the jokes, need a good laugh!",
+                    UserId = 4,
+                    PostId = 39,
+                    CreatedAt = _dateTime2,
+                    ModifiedAt = null
+                }
+                );
         }
 
         private void SeedLikes(ModelBuilder modelBuilder)
@@ -399,7 +859,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 3,
                     UserId = 5,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Like
@@ -408,7 +868,7 @@ namespace SocialPulse.Infrastructure
                     Type = false,
                     PostId = 4,
                     UserId = 5,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Like
@@ -417,7 +877,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 5,
                     UserId = 3,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Like
@@ -426,7 +886,7 @@ namespace SocialPulse.Infrastructure
                     Type = false,
                     PostId = 6,
                     UserId = 3,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Like
@@ -435,7 +895,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 7,
                     UserId = 4,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Like
@@ -471,7 +931,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 11,
                     UserId = 4,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Like
@@ -480,7 +940,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 12,
                     UserId = 5,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Like
@@ -489,7 +949,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 1,
                     UserId = 3,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Like
@@ -498,7 +958,7 @@ namespace SocialPulse.Infrastructure
                     Type = false,
                     PostId = 2,
                     UserId = 4,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Like
@@ -507,7 +967,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 3,
                     UserId = 4,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Like
@@ -516,7 +976,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 4,
                     UserId = 4,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime2,
                     ModifiedAt = null
                 },
                 new Like
@@ -543,7 +1003,7 @@ namespace SocialPulse.Infrastructure
                     Type = true,
                     PostId = 7,
                     UserId = 5,
-                    CreatedAt = _dateTime,
+                    CreatedAt = _dateTime3,
                     ModifiedAt = null
                 },
                 new Like
@@ -554,7 +1014,260 @@ namespace SocialPulse.Infrastructure
                     UserId = 5,
                     CreatedAt = _dateTime,
                     ModifiedAt = null
-                });
+                },
+                new Like
+                {
+                    Id = 21,
+                    Type = true,
+                    PostId = 13,
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 22,
+                    Type = true,
+                    PostId = 13,
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 23,
+                    Type = true,
+                    PostId = 15,
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 24,
+                    Type = false,
+                    PostId = 17,
+                    UserId = 6,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 25,
+                    Type = true,
+                    PostId = 17,
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 26,
+                    Type = true,
+                    PostId = 19,
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 27,
+                    Type = true,
+                    PostId = 19,
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 28,
+                    Type = true,
+                    PostId = 21,
+                    UserId = 5,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 29,
+                    Type = false,
+                    PostId = 21,
+                    UserId = 6,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 30,
+                    Type = false,
+                    PostId = 23,
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 31,
+                    Type = true,
+                    PostId = 23,
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 32,
+                    Type = true,
+                    PostId = 25,
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 33,
+                    Type = true,
+                    PostId = 25,
+                    UserId = 5,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 34,
+                    Type = true,
+                    PostId = 27,
+                    UserId = 6,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 35,
+                    Type = false,
+                    PostId = 27,
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 36,
+                    Type = false,
+                    PostId = 29,
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 37,
+                    Type = true,
+                    PostId = 29,
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 38,
+                    Type = true,
+                    PostId = 31,
+                    UserId = 5,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 39,
+                    Type = true,
+                    PostId = 31,
+                    UserId = 6,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 40,
+                    Type = true,
+                    PostId = 33,
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 41,
+                    Type = false,
+                    PostId = 33,
+                    UserId = 3,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 42,
+                    Type = false,
+                    PostId = 35,
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 43,
+                    Type = true,
+                    PostId = 35,
+                    UserId = 5,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 44,
+                    Type = true,
+                    PostId = 37,
+                    UserId = 6,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 45,
+                    Type = true,
+                    PostId = 37,
+                    UserId = 2,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 46,
+                    Type = true,
+                    PostId = 39,
+                    UserId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 47,
+                    Type = false,
+                    PostId = 39,
+                    UserId = 5,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Like
+                {
+                    Id = 48,
+                    Type = false,
+                    PostId = 15,
+                    UserId = 5,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
         }
 
         private void SeedQuestions(ModelBuilder modelBuilder)
@@ -994,6 +1707,81 @@ namespace SocialPulse.Infrastructure
                     Id = 8,
                     UserId = 5,
                     ConversationId = 4,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
+        }
+
+        private void SeedSubscriptions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Subscription>().HasData(
+                new Subscription
+                {
+                    Id = 1,
+                    UserId = 4,
+                    Active = true,
+                    ExpirationDate = DateTime.Now.AddMonths(3),
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Subscription
+                {
+                    Id = 2,
+                    UserId = 6,
+                    Active = true,
+                    ExpirationDate = DateTime.Now.AddMonths(3),
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
+        }
+
+        private void SeedImages(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Image>().HasData(
+                new Image
+                {
+                    Id= 1,
+                    Data = _image,
+                    ContentType = "Image",
+                    PostId = 15,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Image
+                {
+                    Id = 2,
+                    Data = _image,
+                    ContentType = "Image",
+                    PostId = 10,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Image
+                {
+                    Id = 3,
+                    Data = _image,
+                    ContentType = "Image",
+                    MessageId = 5,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Image
+                {
+                    Id = 4,
+                    Data = _image,
+                    ContentType = "Image",
+                    PostId = 20,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Image
+                {
+                    Id = 5,
+                    Data = _image,
+                    ContentType = "Image",
+                    PostId = 31,
                     CreatedAt = _dateTime,
                     ModifiedAt = null
                 }

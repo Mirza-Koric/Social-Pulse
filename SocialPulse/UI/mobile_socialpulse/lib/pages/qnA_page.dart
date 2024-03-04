@@ -36,7 +36,7 @@ class _QnaPageState extends State<QnaPage> {
 
   Future<void> fetchData() async {
     try {
-      questionResult= await _questionProvider.getPaged(
+      questionResult = await _questionProvider.getPaged(
           filter: {"pageSize": 50, "userId": int.parse(Authentification.tokenDecoded?["Id"])});
       if (mounted) {
         setState(() {

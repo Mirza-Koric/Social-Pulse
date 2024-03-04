@@ -6,5 +6,7 @@
         public string Username { get; set; } = null!;
         public Role Role { get; set; }
         public DateTime BirthDate { get; set; }
+        public SubscriptionDto Subscription { get; set; } = null!;
+
     }
 }

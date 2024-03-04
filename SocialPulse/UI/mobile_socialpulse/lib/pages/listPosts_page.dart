@@ -84,11 +84,12 @@ class _PostsListState extends State<PostsList> {
                     id: fetchedPosts![index].id!,
                     title: fetchedPosts![index].title!,
                     content: fetchedPosts![index].text!,
+                    isAdvert: fetchedPosts![index].isAdvert!,
                     groupId: fetchedPosts![index].groupId!,
                     groupName: fetchedPosts![index].group!.name!,
                     user: fetchedPosts![index].user!,
                     tag: fetchedPosts![index].tag,
-                    images: fetchedPosts![index].images!);
+                    images: fetchedPosts![index].images);
               }
             )
           ]

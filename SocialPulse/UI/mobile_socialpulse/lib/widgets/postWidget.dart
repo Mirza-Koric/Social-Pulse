@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_socialpulse/models/search_result.dart';
 import 'package:mobile_socialpulse/pages/listPosts_page.dart';
 import 'package:mobile_socialpulse/pages/otherUser_page.dart';
-import 'package:mobile_socialpulse/pages/profile_page.dart';
+import 'package:mobile_socialpulse/pages/post_page.dart';
 import 'package:provider/provider.dart';
 
 import '../models/comment.dart';
@@ -16,26 +16,32 @@ import '../providers/like_provider.dart';
 import '../utils/utils.dart';
 
 class PostWidget extends StatefulWidget {
-  //const PostWidget({super.key});
 
   final int id;
   final String title;
   final String content;
+  final bool isAdvert;
   final int groupId;
   final String groupName;
   final User user;
   final Tag? tag;
   final List<myimage.Image>? images;
 
+  final bool? showComments;
+  final bool? isPostPage;
+
   const PostWidget(
       {required this.id,
       required this.title,
       required this.content,
+      required this.isAdvert,
       required this.groupId,
       required this.groupName,
       required this.user,
       this.tag,
       required this.images,
+      this.showComments,
+      this.isPostPage,
       super.key});
 
   @override
@@ -68,6 +74,8 @@ class _PostWidgetState extends State<PostWidget> {
     _likeProvider = context.read<LikeProvider>();
 
     fetchData();
+
+    visibleComments = widget.showComments ?? false;
   }
 
   Future<void> fetchData() async {
@@ -218,8 +226,6 @@ class _PostWidgetState extends State<PostWidget> {
       }
     }
     await fetchLikes();
-
-
   }
 
   Future<void> submitComment (String comment) async{
@@ -241,31 +247,40 @@ class _PostWidgetState extends State<PostWidget> {
   
   @override
   Widget build(BuildContext context) {
+
+
     return isLoading
         ? const SpinKitFadingCircle(color: Colors.lightGreen)
         : SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Color.fromARGB(255, 200, 200, 200),
-                    Color.fromARGB(255, 234, 234, 234)
-                  ]),
-                  //color: Color.fromARGB(255, 234, 234, 234),
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              height: null,
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      //await Get.find<RoomsController>().joinRoom(room: room);
-                    },
-                    child: Container(
+            child: InkWell(
+              onTap: widget.isPostPage != null ? null : (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PostPage(postId: widget.id)));
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                      Color.fromARGB(255, 200, 200, 200),
+                      Color.fromARGB(255, 234, 234, 234)
+                    ]),
+                    //color: Color.fromARGB(255, 234, 234, 234),
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                height: null,
+                child: Column(
+                  children: [
+                    Container(
                       padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          widget.isAdvert?
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("This is a sponsored post.")
+                            ],
+                          ) : const SizedBox(),
                           Row(
                             children: [
                               TextButton(
@@ -289,10 +304,6 @@ class _PostWidgetState extends State<PostWidget> {
                                   "Tag: ${widget.tag?.name ?? ""}",
                                   style: kTileContentStyle),
                               const Spacer(),
-                              const Icon(
-                                Icons.more_horiz,
-                                color: Colors.black,
-                              ),
                             ],
                           ),
                           const SizedBox(
@@ -329,108 +340,108 @@ class _PostWidgetState extends State<PostWidget> {
                         ],
                       ),
                     ),
-                  ),
-                  const Divider(
-                    thickness: 1,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 3.0),
-                          child: Row(
-                            children: [
-                              TextButton(
-                                onPressed:
-                                widget.user.id==int.parse(Authentification.tokenDecoded?["Id"]) ? null :
-                                    () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context)=> OtherUser(id: widget.user.id!)));
-                                },
-                                child: Text(widget.user.username!,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                        decoration:
-                                        widget.user.id==int.parse(Authentification.tokenDecoded?["Id"]) ? null :
-                                        TextDecoration.underline,
-                                        decorationThickness: 2
-                                    )
+                    const Divider(
+                      thickness: 1,
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 3.0),
+                            child: Row(
+                              children: [
+                                TextButton(
+                                  onPressed:
+                                  widget.user.id==int.parse(Authentification.tokenDecoded?["Id"]) ? null :
+                                      () {
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context)=> OtherUser(id: widget.user.id!)));
+                                  },
+                                  child: Text(widget.user.username!,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                          decoration:
+                                          widget.user.id==int.parse(Authentification.tokenDecoded?["Id"]) ? null :
+                                          TextDecoration.underline,
+                                          decorationThickness: 2
+                                      )
+                                  ),
                                 ),
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                tooltip: "Show comments",
-                                onPressed: () {
-                                  setState(() {
-                                    visibleComments = !visibleComments;
-                                  });
-                                },
-                                icon: const Icon(
-                                  Icons.chat_bubble,
-                                  color: Colors.black,
-                                  size: 20,
+                                const Spacer(),
+                                IconButton(
+                                  tooltip: "Show comments",
+                                  onPressed: () {
+                                    setState(() {
+                                      visibleComments = !visibleComments;
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.chat_bubble,
+                                    color: Colors.black,
+                                    size: 20,
+                                  ),
                                 ),
-                              ),
-                              Text(comments!.length.toString()),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              IconButton(
-                                onPressed: () {appendLike(true);},
-                                icon: Icon(
-                                  Icons.thumb_up,
-                                  color: myLike!.items.isEmpty
-                                      ? Colors.black
-                                      : myLike!.items[0].type == true
-                                          ? Colors.blue
-                                          : Colors.black,
-                                  size: 20,
+                                Text(comments!.length.toString()),
+                                const SizedBox(
+                                  width: 6,
                                 ),
-                              ),
-                              Text(likes!
-                                  .where((l) => l.type == true)
-                                  .toList()
-                                  .length
-                                  .toString()),
-                              IconButton(
-                                onPressed: () {appendLike(false);},
-                                icon: Icon(
-                                  Icons.thumb_down,
-                                  color: myLike!.items.isEmpty
-                                      ? Colors.black
-                                      : myLike!.items[0].type == false
-                                          ? Colors.red
-                                          : Colors.black,
-                                  size: 20,
+                                IconButton(
+                                  onPressed: () {appendLike(true);},
+                                  icon: Icon(
+                                    Icons.thumb_up,
+                                    color: myLike!.items.isEmpty
+                                        ? Colors.black
+                                        : myLike!.items[0].type == true
+                                            ? Colors.blue
+                                            : Colors.black,
+                                    size: 20,
+                                  ),
                                 ),
-                              ),
-                              Text(likes!
-                                  .where((l) => l.type == false)
-                                  .toList()
-                                  .length
-                                  .toString()),
-                            ],
+                                Text(likes!
+                                    .where((l) => l.type == true)
+                                    .toList()
+                                    .length
+                                    .toString()),
+                                IconButton(
+                                  onPressed: () {appendLike(false);},
+                                  icon: Icon(
+                                    Icons.thumb_down,
+                                    color: myLike!.items.isEmpty
+                                        ? Colors.black
+                                        : myLike!.items[0].type == false
+                                            ? Colors.red
+                                            : Colors.black,
+                                    size: 20,
+                                  ),
+                                ),
+                                Text(likes!
+                                    .where((l) => l.type == false)
+                                    .toList()
+                                    .length
+                                    .toString()),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 120),
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      child: visibleComments ? Column(
-                        children: renderComments(),
-                      ): Container(),
-                    ),
-                  )
-                ],
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 120),
+                      width: double.infinity,
+                      child: SingleChildScrollView(
+                        child: visibleComments ? Column(
+                          children: renderComments(),
+                        ): Container(),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );
