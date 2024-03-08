@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:admin_socialpulse/providers/notification_provider.dart';
 import 'package:admin_socialpulse/providers/recommend_result_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_socialpulse/pages/login_page.dart';
@@ -51,7 +52,8 @@ void main() async {
       ChangeNotifierProvider(create: (context) => TagProvider()),
       ChangeNotifierProvider(create: (context) => UserConversationProvider()),
       ChangeNotifierProvider(create: (context) => UserProvider()),
-      ChangeNotifierProvider(create: (context) => RecommendResultProvider())
+      ChangeNotifierProvider(create: (context) => RecommendResultProvider()),
+      ChangeNotifierProvider(create: (context) => NotificationProvider())
     ],
     child: const MyApp(),
   ));

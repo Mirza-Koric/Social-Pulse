@@ -6,6 +6,7 @@ import 'package:admin_socialpulse/pages/postsView_page.dart';
 import 'package:admin_socialpulse/pages/qna_page.dart';
 import 'package:admin_socialpulse/pages/tagsView_page.dart';
 import 'package:admin_socialpulse/pages/usersView_page.dart';
+import 'package:admin_socialpulse/pages/notificationsView_page.dart';
 import 'package:admin_socialpulse/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     const GroupsViewPage(),
     const TagsViewPage(),
     const QnAPage(),
+    const NotificationsViewPage()
   ];
 
   @override
@@ -102,6 +104,14 @@ class _HomePageState extends State<HomePage> {
                   tap: () {
                     setState(() {
                       _currentIndex = 6;
+                    });
+                  }),
+              drawerListTile(
+                  title: ' Notifications',
+                  icon: const Icon(Icons.note),
+                  tap: () {
+                    setState(() {
+                      _currentIndex = 7;
                     });
                   }),
               const Padding(

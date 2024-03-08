@@ -1,5 +1,6 @@
 import 'package:admin_socialpulse/models/group.dart';
 import 'package:admin_socialpulse/providers/group_provider.dart';
+import 'package:admin_socialpulse/providers/notification_provider.dart';
 import 'package:admin_socialpulse/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -17,11 +18,13 @@ class _GroupDetailsState extends State<GroupDetails> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   late GroupProvider _groupProvider = GroupProvider();
+  late NotificationProvider _notificationProvider = NotificationProvider();
 
   @override
   void initState() {
     super.initState();
     _groupProvider = context.read<GroupProvider>();
+    _notificationProvider = context.read<NotificationProvider>();
   }
 
   @override
@@ -84,7 +87,14 @@ class _GroupDetailsState extends State<GroupDetails> {
                             Map.of(_formKey.currentState!.value);
 
                         if (widget.group == null) {
-                          await _groupProvider.insert(request);
+                          Group response = await _groupProvider.insert(request);
+
+                          await _notificationProvider.sendRabbitNotification({
+                            'title': "Added new group",
+                            'content':
+                                "Successfully added new group: ${response.name}",
+                            'userId': 1
+                          });
                         } else if (widget.group != null) {
                           await _groupProvider.update(request);
                         }

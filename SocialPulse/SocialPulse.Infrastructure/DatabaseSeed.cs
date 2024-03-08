@@ -28,6 +28,7 @@ namespace SocialPulse.Infrastructure
             SeedUserConversations(modelBuilder);
             SeedSubscriptions(modelBuilder);
             SeedImages(modelBuilder);
+            SeedNotifications(modelBuilder);
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)
@@ -1782,6 +1783,30 @@ namespace SocialPulse.Infrastructure
                     Data = _image,
                     ContentType = "Image",
                     PostId = 31,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                }
+                );
+        }
+
+        private void SeedNotifications(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Notification>().HasData(
+                new Notification
+                {
+                    Id = 1,
+                    Title = "Welcome",
+                    Content = "Welcome to the SocialPulse admin app",
+                    UserId = 1,
+                    CreatedAt = _dateTime,
+                    ModifiedAt = null
+                },
+                new Notification
+                {
+                    Id = 2,
+                    Title = "Your role",
+                    Content = "You are the admin of the SocialPulse application",
+                    UserId = 1,
                     CreatedAt = _dateTime,
                     ModifiedAt = null
                 }

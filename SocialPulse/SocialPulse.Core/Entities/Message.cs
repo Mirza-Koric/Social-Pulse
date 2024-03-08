@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-
-namespace SocialPulse.Core
+﻿namespace SocialPulse.Core
 {
     public class Message : BaseEntity
     {

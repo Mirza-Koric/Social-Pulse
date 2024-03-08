@@ -21,6 +21,8 @@ namespace SocialPulse.Infrastructure
         public readonly ITagsRepository TagsRepository;
         public readonly IUserConversationsRepository UserConversationsRepository;
         public readonly IUsersRepository UsersRepository;
+        public readonly IRecommendResultsRepository RecommendResultsRepository;
+        public readonly INotificationsRepository NotificationsRepository;
 
         public UnitOfWork(
             DatabaseContext databaseContext,
@@ -29,15 +31,17 @@ namespace SocialPulse.Infrastructure
             IConversationsRepository conversationsRepository,
             IGroupsRepository groupsRepository,
             IImagesRepository imagesRepository,
-            ILikesRepository likesRepository, 
-            IMessagesRepository messagesRepository, 
+            ILikesRepository likesRepository,
+            IMessagesRepository messagesRepository,
             IPostsRepository postsRepository,
             IQuestionsRepository questionsRepository,
             IReportsRepository reportsRepository,
             ISubscriptionsRepository subscriptionsRepository,
             ITagsRepository tagsRepository,
             IUserConversationsRepository userConversationsRepository,
-            IUsersRepository usersRepository)
+            IUsersRepository usersRepository,
+            IRecommendResultsRepository recommendResultsRepository,
+            INotificationsRepository notificationsRepository)
         {
             _databaseContext = databaseContext;
 
@@ -55,6 +59,8 @@ namespace SocialPulse.Infrastructure
             TagsRepository = tagsRepository;
             UserConversationsRepository = userConversationsRepository;
             UsersRepository = usersRepository;
+            RecommendResultsRepository = recommendResultsRepository;
+            NotificationsRepository = notificationsRepository;
         }
 
         public async Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)

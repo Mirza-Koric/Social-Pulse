@@ -25,6 +25,7 @@ namespace SocialPulse.Application
             services.AddScoped<IUserConversationsService, UserConversationsService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRecommendResultsService, RecommendResultsService>();
+            services.AddScoped<INotificationsService, NotificationsService>();
         }
 
         public static void AddValidators(this IServiceCollection services)
@@ -44,6 +45,7 @@ namespace SocialPulse.Application
             services.AddScoped<IValidator<UserConversationUpsertDto>, UserConversationValidator>();
             services.AddScoped<IValidator<UserUpsertDto>,UserValidator>();
             services.AddScoped<IValidator<RecommendResultUpsertDto>, RecommendResultValidator>();
+            services.AddScoped<IValidator<NotificationUpsertDto>, NotificationValidator>();
         }
     }
 }

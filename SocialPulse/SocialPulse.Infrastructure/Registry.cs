@@ -22,6 +22,7 @@ namespace SocialPulse.Infrastructure
             services.AddScoped<IUserConversationsRepository, UserConversationsRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRecommendResultsRepository, RecommendResultsRepository>();
+            services.AddScoped<INotificationsRepository, NotificationsRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

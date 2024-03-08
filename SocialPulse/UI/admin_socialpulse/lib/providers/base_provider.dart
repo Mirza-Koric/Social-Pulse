@@ -168,6 +168,6 @@ bool isValidResponse(Response response) {
     throw Exception("Unauthorized");
   } else {
     throw Exception(
-        "Something bad happened during the web request. Message: ${response.statusCode}");
+        "Something bad happened during the web request. Message: ${response.body}");
   }
 }

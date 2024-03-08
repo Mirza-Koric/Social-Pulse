@@ -20,5 +20,6 @@
         public ICollection<UserConversation> Conversations { get; set; } = null!;
         public Subscription Subscription { get; set; } = null!;
 
+        public ICollection<Notification> Notifications = null!;
     }
 }

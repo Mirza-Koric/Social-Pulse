@@ -4,8 +4,5 @@ namespace SocialPulse.Infrastructure.Interfaces
 {
     public interface IImagesRepository : IBaseRepository<Image, int, BaseSearchObject>
     {
-        public interface IImagesRepository : IBaseRepository<Image, int, BaseSearchObject>
-        {
-        }
     }
 }

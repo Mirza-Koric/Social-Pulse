@@ -1,4 +1,5 @@
 import 'package:admin_socialpulse/models/tag.dart';
+import 'package:admin_socialpulse/providers/notification_provider.dart';
 import 'package:admin_socialpulse/providers/tag_provider.dart';
 import 'package:admin_socialpulse/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,13 @@ class _TagDetailsState extends State<TagDetails> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   late TagProvider _tagProvider = TagProvider();
+  late NotificationProvider _notificationProvider = NotificationProvider();
+
   @override
   void initState() {
     super.initState();
     _tagProvider = context.read<TagProvider>();
+    _notificationProvider = context.read<NotificationProvider>();
   }
 
   @override
@@ -69,7 +73,14 @@ class _TagDetailsState extends State<TagDetails> {
                             Map.of(_formKey.currentState!.value);
 
                         if (widget.tag == null) {
-                          await _tagProvider.insert(request);
+                          var response = await _tagProvider.insert(request);
+
+                          await _notificationProvider.sendRabbitNotification({
+                            'title': "Added new tag",
+                            'content':
+                                "Successfully added new tag: ${response.name}",
+                            'userId': 1
+                          });
                         } else if (widget.tag != null) {
                           await _tagProvider.update(request);
                         }

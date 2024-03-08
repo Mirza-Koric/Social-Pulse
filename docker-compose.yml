@@ -1,0 +1,74 @@
+version: '3'
+services:
+  rabbitMQ:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq_container'
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 8050:15672
+      - 5672:5672
+    expose:
+      - 5672
+    networks: 
+      - socialpulsenet2023
+
+  socialpulse-sql:
+    container_name: app_db
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SQL_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      - ${SQL_PORT}:1433
+    expose:
+      - 1433
+    networks:
+      - socialpulsenet2023
+
+  socialpulse_api:
+    restart: unless-stopped
+    build:
+      context: ./SocialPulse
+    environment:
+      - ConnectionStrings:Main=Server=${SQL_HOST}, 1433;Database=${SQL_DB_COMMON};User=${SQL_USER};Password=${SQL_PASSWORD};ConnectRetryCount=0; TrustServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitMQ
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VIRTUALHOST=/
+    ports:
+      - 7185:7185
+    networks:
+      - socialpulsenet2023
+    links:
+      - socialpulse-sql
+    depends_on:
+      - socialpulse-sql
+      - rabbitMQ
+
+  auxiliary:
+    restart: unless-stopped
+    build:
+      context: ./Auxiliary
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitMQ
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VIRTUALHOST=/
+    ports:
+      - 7198:7198
+    networks:
+      - socialpulsenet2023
+    depends_on:
+      - rabbitMQ
+
+
+
+networks:
+  socialpulsenet2023:
+    driver: bridge
