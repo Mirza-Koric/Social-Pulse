@@ -34,7 +34,7 @@ services:
     build:
       context: ./SocialPulse
     environment:
-      - ConnectionStrings:Main=Server=socialpulse-sql, 1433;Database=200074;User=${SQL_USER};Password=Word5678?;ConnectRetryCount=0; TrustServerCertificate=True
+      - ConnectionStrings:Main=Server=socialpulse-sql, 1433;Database=200074;User=sa;Password=Word5678?;ConnectRetryCount=0; TrustServerCertificate=True
       - ASPNETCORE_ENVIRONMENT=Development
       - RABBITMQ_HOST=rabbitMQ
       - RABBITMQ_USERNAME=guest
