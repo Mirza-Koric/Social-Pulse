@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobile_socialpulse/models/search_result.dart';
 import 'package:mobile_socialpulse/providers/user_provider.dart';
 import 'package:mobile_socialpulse/widgets/postWidget.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
   late PostProvider _postProvider = PostProvider();
   Post? postResult;
+  SearchResult<Post>? randomResult;
+  List<Post>? randomPosts;
 
   late UserProvider _userProvider = UserProvider();
   User? userResult;
@@ -50,6 +53,8 @@ class _PostPageState extends State<PostPage> {
 
     fetchData();
     fetchRecommendations();
+
+
   }
 
   Future<void> fetchData() async {
@@ -58,11 +63,15 @@ class _PostPageState extends State<PostPage> {
       userResult = await _userProvider.getById(int.parse(Authentification.tokenDecoded?["Id"]));
       isSubscribed = userResult!.subscription?.active;
 
+      randomResult = await _postProvider.getRandom();
+      randomPosts = randomResult?.items;
+
       if (mounted) {
         setState(() {
           isLoading = false;
         });
       }
+
     } catch (e) {
       if (mounted) {
         alertBoxMoveBack(context, "Error", e.toString());
@@ -129,12 +138,34 @@ class _PostPageState extends State<PostPage> {
                     isPostPage: true,
                   ),
                   const SizedBox(height: 15),
+                  const Text("You might also like", style: TextStyle(fontSize: 24)),
+                  const SizedBox(height: 10),
                   (loadingRecommendations == true || recommendExists == false || recommendResult == null)
-                      ? const SizedBox()
+                      ?
+                      ListView.builder(
+                          itemCount: randomPosts?.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (context,index){
+                            return Column(
+                              children: [
+                                PostWidget(
+                                    id: randomPosts![index].id!,
+                                    title: randomPosts![index].title!,
+                                    content: randomPosts![index].text!,
+                                    isAdvert: randomPosts![index].isAdvert!,
+                                    groupId: randomPosts![index].groupId!,
+                                    groupName: randomPosts![index].group!.name!,
+                                    user: randomPosts![index].user!,
+                                    tag: randomPosts![index].tag,
+                                    images: randomPosts![index].images
+                                ),
+                                const SizedBox(height: 10),
+                             ],
+                          );
+                        })
                       : Column(
                           children: [
-                            const Text("You might also like", style: TextStyle(fontSize: 24)),
-                            const SizedBox(height: 10),
                             (isSubscribed == true && recommendPostOne!.isAdvert==true) ? const SizedBox() :
                             PostWidget(
                                 id: recommendPostOne!.id!,

@@ -78,14 +78,26 @@ class _PostsViewPageState extends State<PostsViewPage> {
                 (e) => DropdownMenuItem<int>(value: e.id, child: Text(e.name!)))
             .toList();
         groupMenuItemList.insert(
-            0, const DropdownMenuItem<int>(value: 0, child: Text("--")));
+            0,
+            const DropdownMenuItem<int>(
+                value: 0,
+                child: Text(
+                  "(Group)",
+                  style: TextStyle(color: Colors.grey),
+                )));
 
         tagMenuItemList = tagResult!.items
             .map(
                 (e) => DropdownMenuItem<int>(value: e.id, child: Text(e.name!)))
             .toList();
         tagMenuItemList.insert(
-            0, const DropdownMenuItem<int>(value: 0, child: Text("--")));
+            0,
+            const DropdownMenuItem<int>(
+                value: 0,
+                child: Text(
+                  "(Tag)",
+                  style: TextStyle(color: Colors.grey),
+                )));
       }
     } on Exception catch (e) {
       if (mounted) {
@@ -172,6 +184,7 @@ class _PostsViewPageState extends State<PostsViewPage> {
               DataColumn(label: Text("Tag")),
               DataColumn(label: Text("Likes")),
               DataColumn(label: Text("Dislikes")),
+              DataColumn(label: Text("")),
             ],
             rows: postResult?.items
                     .map((Post p) => DataRow(
@@ -196,11 +209,17 @@ class _PostsViewPageState extends State<PostsViewPage> {
                               DataCell(ConstrainedBox(
                                   constraints:
                                       const BoxConstraints(maxWidth: 100),
-                                  child: Text(p.title ?? ""))),
+                                  child: Text(
+                                    p.title ?? "",
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
                               DataCell(ConstrainedBox(
                                   constraints:
-                                      const BoxConstraints(maxWidth: 150),
-                                  child: Text(p.text ?? ""))),
+                                      const BoxConstraints(maxWidth: 100),
+                                  child: Text(
+                                    p.text ?? "",
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
                               DataCell(Text(p.isAdvert.toString())),
                               DataCell(Text(
                                   p.user == null ? "" : p.user!.username!)),
@@ -218,7 +237,8 @@ class _PostsViewPageState extends State<PostsViewPage> {
                                   : p.likes!
                                       .where((element) => element.type == false)
                                       .length
-                                      .toString()))
+                                      .toString())),
+                              const DataCell(Icon(Icons.more_vert))
                             ]))
                     .toList() ??
                 [],
@@ -257,7 +277,12 @@ class _PostsViewPageState extends State<PostsViewPage> {
                   child: DropdownButtonHideUnderline(
                 child: DropdownButton(
                     items: const [
-                      DropdownMenuItem(value: 2, child: Text("--")),
+                      DropdownMenuItem(
+                          value: 2,
+                          child: Text(
+                            "(Advertisement)",
+                            style: TextStyle(color: Colors.grey),
+                          )),
                       DropdownMenuItem(value: 0, child: Text("Is not Advert")),
                       DropdownMenuItem(value: 1, child: Text("Is Advert")),
                     ],

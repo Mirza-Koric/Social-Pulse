@@ -78,6 +78,12 @@ class _PostWidgetState extends State<PostWidget> {
     visibleComments = widget.showComments ?? false;
   }
 
+  @override
+  void didUpdateWidget(covariant PostWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    fetchData();
+  }
+
   Future<void> fetchData() async {
     try {
       await fetchComments();

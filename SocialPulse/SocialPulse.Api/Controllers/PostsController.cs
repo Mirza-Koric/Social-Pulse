@@ -2,6 +2,7 @@
 using SocialPulse.Application.Interfaces;
 using SocialPulse.Core;
 using SocialPulse.Infrastructure.Interfaces;
+using System.Threading;
 
 namespace SocialPulse.Api.Controllers
 {
@@ -22,6 +23,21 @@ namespace SocialPulse.Api.Controllers
             catch (Exception e)
             {
                 Logger.LogError(e, "Error ", postId);
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetRandom")]
+        public async Task<IActionResult> GetRandom ([FromQuery] PostSearchObject searchObject, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var dto = await Service.GetRandomAsync(searchObject, cancellationToken);
+                return Ok(dto);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "Problem when getting paged resources for page number {0}, with page size {1}", searchObject.PageNumber, searchObject.PageSize);
                 return BadRequest();
             }
         }

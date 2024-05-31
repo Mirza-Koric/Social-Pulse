@@ -126,6 +126,7 @@ class _UsersViewPageState extends State<UsersViewPage> {
               DataColumn(label: Text("Email")),
               DataColumn(label: Text("Birthday")),
               DataColumn(label: Text("Role")),
+              DataColumn(label: Text("")),
             ],
             rows: userResult?.items
                     .map((User u) => DataRow(
@@ -147,6 +148,7 @@ class _UsersViewPageState extends State<UsersViewPage> {
                                       u.birthDate!, [dd, '.', mm, '.', yyyy])
                                   : "")),
                               DataCell(Text(u.role ?? "")),
+                              const DataCell(Icon(Icons.more_vert))
                             ]))
                     .toList() ??
                 [],
@@ -174,7 +176,12 @@ class _UsersViewPageState extends State<UsersViewPage> {
               child: DropdownButtonHideUnderline(
             child: DropdownButton(
                 items: const [
-                  DropdownMenuItem(value: 2, child: Text("--")),
+                  DropdownMenuItem(
+                      value: 2,
+                      child: Text(
+                        "(Subscribed)",
+                        style: TextStyle(color: Colors.grey),
+                      )),
                   DropdownMenuItem(value: 0, child: Text("Not Subscribed")),
                   DropdownMenuItem(value: 1, child: Text("Subscribed")),
                 ],
@@ -197,7 +204,12 @@ class _UsersViewPageState extends State<UsersViewPage> {
               child: DropdownButtonHideUnderline(
             child: DropdownButton(
                 items: const [
-                  DropdownMenuItem(value: 0, child: Text("--")),
+                  DropdownMenuItem(
+                      value: 0,
+                      child: Text(
+                        "(Role)",
+                        style: TextStyle(color: Colors.grey),
+                      )),
                   DropdownMenuItem(value: 1, child: Text("Administrator")),
                   DropdownMenuItem(value: 2, child: Text("User")),
                 ],

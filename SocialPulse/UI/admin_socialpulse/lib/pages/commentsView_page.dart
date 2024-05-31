@@ -129,6 +129,7 @@ class _CommentsViewPageState extends State<CommentsViewPage> {
               DataColumn(label: Text("Text")),
               DataColumn(label: Text("Post")),
               DataColumn(label: Text("User")),
+              DataColumn(label: Text("")),
             ],
             rows: commentResult?.items
                     .map((Comment c) => DataRow(
@@ -152,11 +153,15 @@ class _CommentsViewPageState extends State<CommentsViewPage> {
                               DataCell(ConstrainedBox(
                                   constraints:
                                       const BoxConstraints(maxWidth: 150),
-                                  child: Text(c.text ?? ""))),
+                                  child: Text(
+                                    c.text ?? "",
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
                               DataCell(
                                   Text(c.post == null ? "" : c.post!.title!)),
                               DataCell(Text(
                                   c.user == null ? "" : c.user!.username!)),
+                              const DataCell(Icon(Icons.more_vert))
                             ]))
                     .toList() ??
                 [],

@@ -26,6 +26,13 @@ namespace SocialPulse.Infrastructure
                 .ToPagedListAsync(searchObject, cancellationToken);
         }
 
+        public async Task<PagedList<Post>> GetRandomAsync (PostSearchObject searchObject, CancellationToken cancellationToken)
+        {
+            return await DbSet.Include(p => p.Group).Include(p => p.Comments).Include(p => p.Likes).Include(p => p.User).Include(p => p.Images).Include(p => p.Tag)
+                .OrderBy(p => Guid.NewGuid()).Take(3)
+                .ToPagedListAsync(searchObject, cancellationToken);
+        }
+
         public override async Task<Post> GetByIdAsync (int id, CancellationToken cancellationToken)
         {
             return await DbSet.Include(p=>p.Group).Include(p=>p.Likes).Include(p => p.Comments).Include(p => p.User).Include(p => p.Images).Include(p => p.Tag).FirstOrDefaultAsync(p => p.Id == id);
@@ -35,5 +42,7 @@ namespace SocialPulse.Infrastructure
         {
             return DbSet.Where(p => p.Id != id).ToList();
         }
+
+        
     }
 }

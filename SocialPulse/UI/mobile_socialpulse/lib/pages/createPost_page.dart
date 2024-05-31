@@ -261,6 +261,16 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                   const SnackBar(
                                       content: Text(
                                           "Successfully created post")));
+
+                              _formKey.currentState?.reset();
+                              _formKey.currentState!.fields['groupId']?.reset();
+                              _formKey.currentState!.fields['tagId']?.reset();
+
+                              setState(() {
+                                images=null;
+                                _images=null;
+                                _base64Images=null;
+                              });
                             }
                           }
                         }

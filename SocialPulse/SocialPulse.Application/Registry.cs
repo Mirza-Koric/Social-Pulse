@@ -46,6 +46,7 @@ namespace SocialPulse.Application
             services.AddScoped<IValidator<UserUpsertDto>,UserValidator>();
             services.AddScoped<IValidator<RecommendResultUpsertDto>, RecommendResultValidator>();
             services.AddScoped<IValidator<NotificationUpsertDto>, NotificationValidator>();
+            services.AddScoped<IValidator<UserChangePasswordDto>, UserPasswordValidator>();
         }
     }
 }

@@ -117,6 +117,7 @@ class _NotificationsViewPageState extends State<NotificationsViewPage> {
               DataColumn(label: Text("Title")),
               DataColumn(label: Text("Content")),
               DataColumn(label: Text("Timestamp")),
+              DataColumn(label: Text("")),
             ],
             rows: notificationResult?.items
                     .map((Notif n) => DataRow(
@@ -141,6 +142,7 @@ class _NotificationsViewPageState extends State<NotificationsViewPage> {
                                   ? formatDate(n.createdAt!,
                                       [dd, '.', mm, '.', yyyy, ' ', HH])
                                   : " ")),
+                              const DataCell(Icon(Icons.more_vert))
                             ]))
                     .toList() ??
                 [],

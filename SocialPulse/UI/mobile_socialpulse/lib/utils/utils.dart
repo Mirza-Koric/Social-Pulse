@@ -94,6 +94,7 @@ InputDecoration customInputDecoration ({String? hint})
     errorBorder: kEnabledTextFieldBorder,
     enabledBorder: kEnabledTextFieldBorder,
     focusedBorder: kEnabledTextFieldBorder,
+    errorMaxLines: 3
   );
 }
 

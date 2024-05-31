@@ -81,14 +81,14 @@ OutlineInputBorder kEnabledTextFieldBorder = OutlineInputBorder(
 
 InputDecoration customInputDecoration({String? hint}) {
   return InputDecoration(
-    hintText: hint,
-    filled: true,
-    fillColor: const Color(0x15FFFFFF),
-    border: kEnabledTextFieldBorder,
-    errorBorder: kEnabledTextFieldBorder,
-    enabledBorder: kEnabledTextFieldBorder,
-    focusedBorder: kEnabledTextFieldBorder,
-  );
+      hintText: hint,
+      filled: true,
+      fillColor: const Color(0x15FFFFFF),
+      border: kEnabledTextFieldBorder,
+      errorBorder: kEnabledTextFieldBorder,
+      enabledBorder: kEnabledTextFieldBorder,
+      focusedBorder: kEnabledTextFieldBorder,
+      errorMaxLines: 3);
 }
 
 class CustomHeightSpacer extends StatelessWidget {

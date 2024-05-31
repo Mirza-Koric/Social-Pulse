@@ -11,7 +11,7 @@ import 'package:mobile_socialpulse/providers/like_provider.dart';
 import 'package:mobile_socialpulse/providers/message_provider.dart';
 import 'package:mobile_socialpulse/providers/image_provider.dart';
 import 'package:mobile_socialpulse/providers/post_provider.dart';
-import 'package:mobile_socialpulse/providers/question_provicer.dart';
+import 'package:mobile_socialpulse/providers/question_provider.dart';
 import 'package:mobile_socialpulse/providers/recommend_result_provider.dart';
 import 'package:mobile_socialpulse/providers/report_provider.dart';
 import 'package:mobile_socialpulse/providers/subscription_provider.dart';

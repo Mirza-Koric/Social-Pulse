@@ -113,6 +113,7 @@ class _GroupsViewPageState extends State<GroupsViewPage> {
             columns: const [
               DataColumn(label: Text("Name")),
               DataColumn(label: Text("Description")),
+              DataColumn(label: Text("")),
             ],
             rows: groupResult?.items
                     .map((Group g) => DataRow(
@@ -132,7 +133,11 @@ class _GroupsViewPageState extends State<GroupsViewPage> {
                             },
                             cells: [
                               DataCell(Text(g.name ?? "")),
-                              DataCell(Text(g.description ?? "")),
+                              DataCell(Text(
+                                g.description ?? "",
+                                overflow: TextOverflow.ellipsis,
+                              )),
+                              const DataCell(Icon(Icons.more_vert))
                             ]))
                     .toList() ??
                 [],

@@ -107,6 +107,7 @@ class _TagsViewPageState extends State<TagsViewPage> {
             showCheckboxColumn: false,
             columns: const [
               DataColumn(label: Text("Name")),
+              DataColumn(label: Text("")),
             ],
             rows: tagResult?.items
                     .map((Tag t) => DataRow(
@@ -126,6 +127,7 @@ class _TagsViewPageState extends State<TagsViewPage> {
                             },
                             cells: [
                               DataCell(Text(t.name ?? "")),
+                              const DataCell(Icon(Icons.more_vert))
                             ]))
                     .toList() ??
                 [],

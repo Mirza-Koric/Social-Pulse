@@ -55,7 +55,13 @@ class _QnAPageState extends State<QnAPage> {
                 DropdownMenuItem<int>(value: e.id, child: Text(e.username!)))
             .toList();
         userMenuItemList.insert(
-            0, const DropdownMenuItem<int>(value: 0, child: Text("--")));
+            0,
+            const DropdownMenuItem<int>(
+                value: 0,
+                child: Text(
+                  "(User)",
+                  style: TextStyle(color: Colors.grey),
+                )));
       }
     } on Exception catch (e) {
       if (mounted) {
@@ -137,6 +143,7 @@ class _QnAPageState extends State<QnAPage> {
               DataColumn(label: Text("Text")),
               DataColumn(label: Text("User")),
               DataColumn(label: Text("Answer")),
+              DataColumn(label: Text("")),
             ],
             rows: questionResult?.items
                     .map((Question q) => DataRow(
@@ -158,17 +165,26 @@ class _QnAPageState extends State<QnAPage> {
                               DataCell(ConstrainedBox(
                                   constraints:
                                       const BoxConstraints(maxWidth: 200),
-                                  child: Text(q.text ?? ""))),
+                                  child: Text(
+                                    q.text ?? "",
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
                               DataCell(Text(
                                   q.user == null ? "" : q.user!.username!)),
-                              DataCell(Text(q.answer == null
-                                  ? "Not answered"
-                                  : q.answer!.text!)),
+                              DataCell(ConstrainedBox(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 300),
+                                child: Text(
+                                  q.answer == null
+                                      ? "Not answered"
+                                      : q.answer!.text!,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )),
+                              const DataCell(Icon(Icons.more_vert))
                             ]))
                     .toList() ??
                 [],
-            // source: _DataSource(
-            //     data: questionList, context: context, callback: fetchData),
           ),
         ),
       ),
@@ -193,7 +209,12 @@ class _QnAPageState extends State<QnAPage> {
               child: DropdownButtonHideUnderline(
             child: DropdownButton(
                 items: const [
-                  DropdownMenuItem(value: 2, child: Text("--")),
+                  DropdownMenuItem(
+                      value: 2,
+                      child: Text(
+                        "(Answered)",
+                        style: TextStyle(color: Colors.grey),
+                      )),
                   DropdownMenuItem(value: 0, child: Text("Not Answered")),
                   DropdownMenuItem(value: 1, child: Text("Answered")),
                 ],

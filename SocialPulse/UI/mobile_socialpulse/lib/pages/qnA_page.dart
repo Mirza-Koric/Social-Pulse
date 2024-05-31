@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_socialpulse/models/question.dart';
-import 'package:mobile_socialpulse/providers/question_provicer.dart';
+import 'package:mobile_socialpulse/providers/question_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../models/search_result.dart';
@@ -142,7 +142,7 @@ class _QnaPageState extends State<QnaPage> {
                             questions![index].answer==null ?
                             const Text("Please wait for the answer", style: TextStyle(fontSize: 20))
                                 : Text("A: ${questions![index].answer!.text}", style: const TextStyle(fontSize: 20)),
-                            const SizedBox(height: 25),
+                            const Divider(height: 20, thickness: 5, color: Colors. black87,)
                           ]);
                     }
                 ),

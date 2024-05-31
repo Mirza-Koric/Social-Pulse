@@ -112,7 +112,7 @@ class _SignupPageState extends State<SignupPage> {
                     name: "username",
                     validator: ((value) {
                       if (value == null || value.isEmpty) {
-                        return "Must input value";
+                        return "Username cannot be blank";
                       } else {
                         return null;
                       }
@@ -127,7 +127,7 @@ class _SignupPageState extends State<SignupPage> {
                     name: 'email',
                     validator: ((value) {
                       if (value == null || value.isEmpty) {
-                        return "Must input email";
+                        return "Email cannot be blank";
                       } else if (!RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value)) {
@@ -146,11 +146,12 @@ class _SignupPageState extends State<SignupPage> {
                   name: 'birthDate',
                   validator: (value) {
                     if (value == null) {
-                      return "Mandatory field";
+                      return "Birth date cannot be blank";
                     } else {
                       return null;
                     }
                   },
+                    lastDate: DateTime.now(),
                   decoration: const InputDecoration(
                       label: Text("Birth date"),
                       floatingLabelBehavior: FloatingLabelBehavior.always
@@ -162,7 +163,7 @@ class _SignupPageState extends State<SignupPage> {
                     obscureText: true,
                     validator: ((value) {
                       if (value == null || value.isEmpty) {
-                        return "Must input value";
+                        return "Password cannot be blank";
                       } else if (value.length < 8 ||
                           !value.contains(RegExp(r'[A-Z]')) ||
                           !value.contains(RegExp(r'[a-z]')) ||
@@ -175,7 +176,8 @@ class _SignupPageState extends State<SignupPage> {
                     decoration: const InputDecoration(
                       label:
                       Text("Password"),
-                      floatingLabelBehavior: FloatingLabelBehavior.always
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      errorMaxLines: 3
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -194,17 +196,22 @@ class _SignupPageState extends State<SignupPage> {
 
                             await _accessProvider.signUp(request);
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text("Successfully signed up!")));
+                            if(mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          "Successfully signed up!")));
 
-                            Navigator.pop(context);
+                              Navigator.pop(context);
+                            }
                           } else {}
                         } catch (e) {
-                          alertBox(
-                              context,
-                              "Error",
-                              e.toString());
+                          if(mounted) {
+                            alertBox(
+                                context,
+                                "Error",
+                                e.toString());
+                          }
                         }
                       },
                       child: const Text("Sign up"))

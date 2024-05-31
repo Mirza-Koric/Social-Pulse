@@ -1,3 +1,4 @@
+import 'package:admin_socialpulse/pages/account_page.dart';
 import 'package:admin_socialpulse/pages/commentsView_page.dart';
 import 'package:admin_socialpulse/pages/dashboard_page.dart';
 import 'package:admin_socialpulse/pages/groupsView_page.dart';
@@ -27,7 +28,8 @@ class _HomePageState extends State<HomePage> {
     const GroupsViewPage(),
     const TagsViewPage(),
     const QnAPage(),
-    const NotificationsViewPage()
+    const NotificationsViewPage(),
+    const AccountPage()
   ];
 
   @override
@@ -121,6 +123,14 @@ class _HomePageState extends State<HomePage> {
                   thickness: 0.2,
                 ),
               ),
+              drawerListTile(
+                  title: ' Account',
+                  icon: const Icon(Icons.person),
+                  tap: () {
+                    setState(() {
+                      _currentIndex = 8;
+                    });
+                  }),
               drawerListTile(
                   title: ' Logout',
                   icon: const Icon(Icons.logout),

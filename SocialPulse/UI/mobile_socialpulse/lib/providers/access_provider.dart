@@ -63,7 +63,7 @@ bool isValidResponse(Response response) {
   } else if (response.statusCode == 401) {
     throw Exception("Unauthorized");
   } else if (response.statusCode == 400) {
-    throw Exception("Wrong email or password");
+    throw Exception("Bad request. Wrong email or password");
   } else {
     throw Exception(
         "Something bad happened please try again, Status code: ${response.statusCode}");

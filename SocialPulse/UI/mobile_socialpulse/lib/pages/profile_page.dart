@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_socialpulse/pages/changePassword_page.dart';
 import 'package:mobile_socialpulse/pages/chats_page.dart';
 import 'package:mobile_socialpulse/pages/login_page.dart';
 import 'package:mobile_socialpulse/pages/qnA_page.dart';
@@ -283,6 +284,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     customInputDecoration(),
                                                 initialValue:
                                                     userResult!.birthDate!,
+                                                lastDate: DateTime.now(),
                                               ),
                                             )
                                           : Text(
@@ -452,6 +454,24 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ],
                           ),
+                          Row(
+                            children: [
+                              customContainer(
+                                TextButton.icon(
+                                  onPressed: (){
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            const ChangePasswordPage()));
+                                  },
+                                  icon: const Icon(Icons.lock, color: Color(0xFF394949)),
+                                  label: const Text(
+                                    "Change password",
+                                    style: TextStyle(color: Colors.black)),
+                                )
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),

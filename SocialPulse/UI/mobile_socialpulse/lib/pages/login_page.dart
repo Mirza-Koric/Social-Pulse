@@ -78,13 +78,13 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'Email',
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
-                      validator: (value) {
-                          return value!.isEmpty
-                              ? 'Please, Enter Email Address'
-                              : AppConstants.emailRegex.hasMatch(value)
-                              ? null
-                              : 'Invalid Email Address';
-                      },
+                      // validator: (value) {
+                      //     return value!.isEmpty
+                      //         ? 'Please, Enter Email Address'
+                      //         : AppConstants.emailRegex.hasMatch(value)
+                      //         ? null
+                      //         : 'Invalid Email Address';
+                      // },
                       controller: _emailController,
 
                     ),
@@ -92,11 +92,11 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'Password',
                       keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.done,
-                      validator: (value) {
-                          return value!.isEmpty
-                              ? 'Please, Enter Password'
-                              : null;
-                      },
+                      // validator: (value) {
+                      //     return value!.isEmpty
+                      //         ? 'Please, Enter Password'
+                      //         : null;
+                      // },
                       controller: _passwordController,
                       obscureText: isObscure,
                       suffixIcon: Padding(
@@ -127,72 +127,86 @@ class _LoginPageState extends State<LoginPage> {
                     isLoading
                         ? const SpinKitFadingCircle(color: Colors.lightGreen)
                       :FilledButton(
-                      onPressed: _formKey.currentState?.validate() ?? false
-                          ?
+                      onPressed:
                           () async {
 
-                        if (mounted) {
-                          setState(() {
-                            isLoading = true;
-                          });
-                        }
                         var email = _emailController.text;
                         var password = _passwordController.text;
 
-                        try {
-                          var data =
-                          await _accessProvider.signIn(email, password);
-                          var token = data['token'];
-                          Authentification.token = token;
-                          Authentification.tokenDecoded =
-                              JwtDecoder.decode(token);
+                        if (email.isEmpty) {
+                        alertBox(context, "Validation Error",
+                        "Email cannot be blank");
+                        } else if (!AppConstants.emailRegex
+                            .hasMatch(email)) {
+                        alertBox(context, "Validation Error",
+                        "Invalid email address");
+                        } else if (password.isEmpty) {
+                        alertBox(context, "Validation Error",
+                        "Password cannot be blank");
+                        } else {
+                          if (mounted) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                          }
 
-                          if (Authentification.tokenDecoded?['Role'] !=
-                              'User') {
-                            if(mounted){
-                            alertBox(
-                                context,
-                                "Error",
-                                "Admin account cannot access mobile app");}
-                            if (mounted) {
-                              setState(() {
-                                isLoading = false;
-                              });
+                          try {
+                            var data =
+                            await _accessProvider.signIn(email, password);
+                            var token = data['token'];
+                            Authentification.token = token;
+                            Authentification.tokenDecoded =
+                                JwtDecoder.decode(token);
+
+                            if (Authentification.tokenDecoded?['Role'] !=
+                                'User') {
+                              if (mounted) {
+                                alertBox(
+                                    context,
+                                    "Error",
+                                    "Admin account cannot access mobile app");
+                              }
+                              if (mounted) {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            }
+                            else {
+                              if (mounted) {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(builder: (context) {
+                                      return const HomePage();
+                                    }));
+                              }
                             }
                           }
-                          else {
-                            if(mounted){
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
-                                  return const HomePage();
-                                }));
-                          }}
-                        }
-                        catch (e) {
-                          if (mounted) {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    AlertDialog(
-                                      title: const Text("Error"),
-                                      content: Text(e.toString()),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              if (mounted) {
-                                                setState(() {
-                                                  isLoading = false;
-                                                });
-                                              }
-                                            },
-                                            child: const Text('Ok'))
-                                      ],
-                                    ));
+                          catch (e) {
+                            if (mounted) {
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text("Error"),
+                                        content: Text(e.toString()),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                if (mounted) {
+                                                  setState(() {
+                                                    isLoading = false;
+                                                  });
+                                                }
+                                              },
+                                              child: const Text('Ok'))
+                                        ],
+                                      ));
+                            }
                           }
                         }
-                      }: null,
+                      },
                       child: const Text('Login'),
                     ),
                     const SizedBox(

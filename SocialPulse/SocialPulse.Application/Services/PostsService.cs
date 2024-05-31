@@ -22,5 +22,11 @@ namespace SocialPulse.Application
                 return false;
             return true;
         }
+
+        public async Task<PagedList<PostDto>> GetRandomAsync (PostSearchObject searchObject, CancellationToken cancellation)
+        {
+            var pagedList = await CurrentRepository.GetRandomAsync(searchObject, cancellation);
+            return Mapper.Map<PagedList<PostDto>>(pagedList);
+        }
     }
 }
