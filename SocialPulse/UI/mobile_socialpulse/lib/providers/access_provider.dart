@@ -9,7 +9,7 @@ class AccessProvider extends ChangeNotifier {
 
   AccessProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://10.0.2.2:7185/");
+        defaultValue: "http://10.0.2.2:7185/");
   }
 
   Future<dynamic> signIn(String em, String ps) async {

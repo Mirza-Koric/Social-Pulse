@@ -59,7 +59,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 0;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 0),
               drawerListTile(
                   title: ' Users',
                   icon: const Icon(Icons.person),
@@ -67,7 +68,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 1;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 1),
               drawerListTile(
                   title: ' Posts',
                   icon: const Icon(Icons.messenger),
@@ -75,7 +77,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 2;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 2),
               drawerListTile(
                   title: ' Comments',
                   icon: const Icon(Icons.messenger),
@@ -83,7 +86,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 3;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 3),
               drawerListTile(
                   title: ' Groups',
                   icon: const Icon(Icons.circle),
@@ -91,7 +95,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 4;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 4),
               drawerListTile(
                   title: ' Tags',
                   icon: const Icon(Icons.tag),
@@ -99,7 +104,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 5;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 5),
               drawerListTile(
                   title: ' QnA',
                   icon: const Icon(Icons.question_answer),
@@ -107,7 +113,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 6;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 6),
               drawerListTile(
                   title: ' Notifications',
                   icon: const Icon(Icons.note),
@@ -115,7 +122,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 7;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 7),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: Divider(
@@ -130,7 +138,8 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _currentIndex = 8;
                     });
-                  }),
+                  },
+                  index: _currentIndex == 8),
               drawerListTile(
                   title: ' Logout',
                   icon: const Icon(Icons.logout),
@@ -172,7 +181,8 @@ class _HomePageState extends State<HomePage> {
                                     ))
                               ],
                             ));
-                  }),
+                  },
+                  index: false),
             ],
           )),
           const VerticalDivider(
@@ -193,11 +203,15 @@ class _HomePageState extends State<HomePage> {
 }
 
 ListTile drawerListTile(
-    {required String title, required Icon icon, required VoidCallback tap}) {
+    {required String title,
+    required Icon icon,
+    required VoidCallback tap,
+    required bool index}) {
   return ListTile(
     onTap: tap,
     horizontalTitleGap: 0.0,
     leading: icon,
+    tileColor: index ? const Color.fromARGB(255, 219, 217, 217) : null,
     title: Text(
       title,
       style: const TextStyle(color: Color.fromRGBO(148, 170, 220, 1)),

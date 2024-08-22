@@ -14,7 +14,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   BaseProvider(String point) {
     endpoint += point;
     baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://localhost:7185/");
+        defaultValue: "http://localhost:7185/");
   }
 
   Future<SearchResult<T>> getPaged({dynamic filter}) async {

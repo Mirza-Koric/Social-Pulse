@@ -53,13 +53,6 @@ class _CommentDetailsState extends State<CommentDetails> {
             const Text("Comment details", style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             FormBuilderTextField(
-                name: "id",
-                initialValue: widget.comment == null
-                    ? "0"
-                    : widget.comment!.id.toString(),
-                enabled: false),
-            const SizedBox(height: 10),
-            FormBuilderTextField(
               decoration: customInputDecoration(hint: "Text"),
               name: "text",
               maxLines: 2,
@@ -101,6 +94,9 @@ class _CommentDetailsState extends State<CommentDetails> {
                       if (_formKey.currentState!.validate()) {
                         Map<String, dynamic> request =
                             Map.of(_formKey.currentState!.value);
+
+                        request['id'] =
+                            widget.comment != null ? widget.comment!.id : 0;
 
                         if (widget.comment == null) {
                           await _commentProvider.insert(request);

@@ -38,18 +38,16 @@ class _UserDetailsState extends State<UserDetails> {
             const Text("User details", style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             FormBuilderTextField(
-                name: "id",
-                initialValue:
-                    widget.user == null ? "0" : widget.user!.id.toString(),
-                enabled: false),
-            const SizedBox(height: 10),
-            FormBuilderTextField(
               decoration: customInputDecoration(hint: "Email"),
               name: "email",
               initialValue: widget.user == null ? "" : widget.user!.email,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "Must input email";
+                } else if (!RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    .hasMatch(value)) {
+                  return "Invalid email";
                 } else {
                   return null;
                 }
@@ -122,6 +120,9 @@ class _UserDetailsState extends State<UserDetails> {
                       if (_formKey.currentState!.validate()) {
                         Map<String, dynamic> request =
                             Map.of(_formKey.currentState!.value);
+
+                        request['id'] =
+                            widget.user != null ? widget.user!.id : 0;
 
                         request['birthDate'] = dateEncode(
                             _formKey.currentState?.value['birthDate']);

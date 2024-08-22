@@ -22,9 +22,22 @@ class Post {
   Tag? tag;
   List<Like>? likes;
   List<Image>? images;
+  DateTime? createdAt;
 
-  Post(this.id, this.title, this.text, this.isAdvert, this.userId, this.user,
-      this.groupId, this.group, this.tagId, this.tag, this.likes, this.images);
+  Post(
+      this.id,
+      this.title,
+      this.text,
+      this.isAdvert,
+      this.userId,
+      this.user,
+      this.groupId,
+      this.group,
+      this.tagId,
+      this.tag,
+      this.likes,
+      this.images,
+      this.createdAt);
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 

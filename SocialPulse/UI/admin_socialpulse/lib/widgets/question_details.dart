@@ -83,8 +83,6 @@ class _QuestionDetailsState extends State<QuestionDetails> {
                           'questionId': widget.question.id
                         };
 
-                        //print(request);
-
                         if (widget.question.answer == null) {
                           await _answerProvider.insert(request);
                         } else if (widget.question.answer != null) {

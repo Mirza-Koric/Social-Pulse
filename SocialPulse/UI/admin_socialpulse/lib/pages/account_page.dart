@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:admin_socialpulse/models/user.dart';
 import 'package:admin_socialpulse/providers/user_provider.dart';
 import 'package:admin_socialpulse/utils/utils.dart';
@@ -76,6 +74,10 @@ class _AccountPageState extends State<AccountPage> {
                       validator: (value) {
                         if (value == null) {
                           return "Must input email";
+                        } else if (!RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                          return "Invalid email";
                         } else {
                           return null;
                         }

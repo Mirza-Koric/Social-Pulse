@@ -29,6 +29,9 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       (json['images'] as List<dynamic>?)
           ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -44,4 +47,5 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'tag': instance.tag,
       'likes': instance.likes,
       'images': instance.images,
+      'createdAt': instance.createdAt?.toIso8601String(),
     };

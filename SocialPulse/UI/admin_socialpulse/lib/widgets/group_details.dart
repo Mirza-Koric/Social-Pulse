@@ -39,12 +39,6 @@ class _GroupDetailsState extends State<GroupDetails> {
             const Text("User details", style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             FormBuilderTextField(
-                name: "id",
-                initialValue:
-                    widget.group == null ? "0" : widget.group!.id.toString(),
-                enabled: false),
-            const SizedBox(height: 10),
-            FormBuilderTextField(
               decoration: customInputDecoration(hint: "Name"),
               name: "name",
               initialValue: widget.group == null ? "" : widget.group!.name,
@@ -85,6 +79,9 @@ class _GroupDetailsState extends State<GroupDetails> {
                       if (_formKey.currentState!.validate()) {
                         Map<String, dynamic> request =
                             Map.of(_formKey.currentState!.value);
+
+                        request['id'] =
+                            widget.group != null ? widget.group!.id : 0;
 
                         if (widget.group == null) {
                           Group response = await _groupProvider.insert(request);

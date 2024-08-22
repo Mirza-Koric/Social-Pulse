@@ -118,7 +118,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                         }
                       } catch (e) {
                         if (mounted) {
-                          alertBox(context, "Error", e.toString());
+                          alertBox(
+                              context,
+                              "Error",
+                              e.toString().contains("Credentials")
+                                  ? "Incorrect old password."
+                                  : e.toString());
                         }
                       }
                     },

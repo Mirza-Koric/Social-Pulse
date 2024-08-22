@@ -39,12 +39,6 @@ class _TagDetailsState extends State<TagDetails> {
             const Text("User details", style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             FormBuilderTextField(
-                name: "id",
-                initialValue:
-                    widget.tag == null ? "0" : widget.tag!.id.toString(),
-                enabled: false),
-            const SizedBox(height: 10),
-            FormBuilderTextField(
               decoration: customInputDecoration(hint: "Name"),
               name: "name",
               initialValue: widget.tag == null ? "" : widget.tag!.name,
@@ -71,6 +65,8 @@ class _TagDetailsState extends State<TagDetails> {
                       if (_formKey.currentState!.validate()) {
                         Map<String, dynamic> request =
                             Map.of(_formKey.currentState!.value);
+
+                        request['id'] = widget.tag != null ? widget.tag!.id : 0;
 
                         if (widget.tag == null) {
                           var response = await _tagProvider.insert(request);

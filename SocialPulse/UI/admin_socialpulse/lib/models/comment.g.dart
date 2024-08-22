@@ -17,6 +17,9 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       json['post'] == null
           ? null
           : Post.fromJson(json['post'] as Map<String, dynamic>),
+      json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
@@ -26,4 +29,5 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'user': instance.user,
       'postId': instance.postId,
       'post': instance.post,
+      'createdAt': instance.createdAt?.toIso8601String(),
     };

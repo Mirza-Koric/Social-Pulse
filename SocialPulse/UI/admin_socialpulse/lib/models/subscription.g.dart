@@ -13,6 +13,9 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
       json['expirationDate'] == null
           ? null
           : DateTime.parse(json['expirationDate'] as String),
+      json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
@@ -21,4 +24,5 @@ Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
       'active': instance.active,
       'userId': instance.userId,
       'expirationDate': instance.expirationDate?.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
     };

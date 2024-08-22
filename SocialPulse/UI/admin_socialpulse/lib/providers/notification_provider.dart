@@ -11,7 +11,7 @@ class NotificationProvider extends BaseProvider<Notif> {
 
   NotificationProvider() : super('Notifications') {
     _mainBaseUrl = const String.fromEnvironment("mainBaseUrl",
-        defaultValue: "https://localhost:7198/");
+        defaultValue: "http://localhost:7198/");
   }
 
   @override

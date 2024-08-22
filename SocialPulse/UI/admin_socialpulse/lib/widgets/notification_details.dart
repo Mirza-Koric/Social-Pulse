@@ -35,13 +35,6 @@ class _NotificationDetailsState extends State<NotificationDetails> {
             const Text("Notification details", style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             FormBuilderTextField(
-                name: "id",
-                initialValue: widget.notification == null
-                    ? "0"
-                    : widget.notification!.id.toString(),
-                enabled: false),
-            const SizedBox(height: 10),
-            FormBuilderTextField(
               decoration: customInputDecoration(hint: "Title"),
               name: "title",
               initialValue:
@@ -77,6 +70,10 @@ class _NotificationDetailsState extends State<NotificationDetails> {
                       if (_formKey.currentState!.validate()) {
                         Map<String, dynamic> request =
                             Map.of(_formKey.currentState!.value);
+
+                        request['id'] = widget.notification != null
+                            ? widget.notification!.id
+                            : 0;
 
                         if (widget.notification == null) {
                           await _notificationProvider.insert(request);

@@ -13,7 +13,7 @@ class RecommendResultProvider extends ChangeNotifier {
 
   RecommendResultProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://10.0.2.2:7185/");
+        defaultValue: "http://10.0.2.2:7185/");
   }
 
   Future<dynamic> getPaged(String em, String ps, {dynamic filter}) async {

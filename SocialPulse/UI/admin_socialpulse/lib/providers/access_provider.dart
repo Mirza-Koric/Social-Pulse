@@ -9,7 +9,7 @@ class AccessProvider extends ChangeNotifier {
 
   AccessProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://localhost:7185/");
+        defaultValue: "http://localhost:7185/");
   }
 
   Future<dynamic> signIn(String em, String ps) async {
@@ -62,6 +62,8 @@ bool isValidResponse(Response response) {
     return true;
   } else if (response.statusCode == 401) {
     throw Exception("Unauthorized");
+  } else if (response.statusCode == 400) {
+    throw Exception(("Incorrect Email or password"));
   } else {
     throw Exception(
         "Something bad happened please try again, Status code: ${response.statusCode}");

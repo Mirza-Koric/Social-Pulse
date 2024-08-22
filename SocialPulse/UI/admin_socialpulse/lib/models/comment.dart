@@ -12,8 +12,10 @@ class Comment {
   User? user;
   int? postId;
   Post? post;
+  DateTime? createdAt;
 
-  Comment(this.id, this.text, this.userId, this.user, this.postId, this.post);
+  Comment(this.id, this.text, this.userId, this.user, this.postId, this.post,
+      this.createdAt);
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);

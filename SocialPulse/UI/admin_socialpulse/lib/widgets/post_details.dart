@@ -66,12 +66,6 @@ class _PostDetailsState extends State<PostDetails> {
             const Text("Post details", style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             FormBuilderTextField(
-                name: "id",
-                initialValue:
-                    widget.post == null ? "0" : widget.post!.id.toString(),
-                enabled: false),
-            const SizedBox(height: 10),
-            FormBuilderTextField(
               decoration: customInputDecoration(hint: "Title"),
               name: "title",
               initialValue: widget.post == null ? "" : widget.post!.title,
@@ -142,6 +136,9 @@ class _PostDetailsState extends State<PostDetails> {
                       if (_formKey.currentState!.validate()) {
                         Map<String, dynamic> request =
                             Map.of(_formKey.currentState!.value);
+
+                        request['id'] =
+                            widget.post != null ? widget.post!.id : 0;
 
                         request['tagId'] =
                             _formKey.currentState?.value['tagId'] == 0
